@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "server.js",
-    "type": "module" ,
+  "type": "module",
   "scripts": {
-    "start":"nodemon server.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,6 +12,7 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "nodemon": "^3.1.11"
   }
