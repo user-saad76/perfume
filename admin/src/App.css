@@ -1,0 +1,26 @@
+.admin-sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  background-color: #1f1f1f;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+}
+
+.admin-sidebar h4 {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.1);
+}
