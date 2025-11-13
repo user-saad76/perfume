@@ -61,9 +61,10 @@ function AddSignatureSeries() {
     resolver: zodResolver(perfumeSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log("Perfume Data:", data);
     alert("Perfume added successfully!");
+  
   };
 
   // Auto-generate slug
