@@ -60,13 +60,13 @@ const SignatureSeriesSchema = new mongoose.Schema(
       default: 5,
     },
 
-    image: {
-      type: {
-        public_id:String,
+     image: {
+       type: {
+         public_id:String,
         secure_url:String
-      }, // You can store image URL/path here
-      required: true,
-    },
+       }, // You can store image URL/path here
+       required: true,
+     },
   },
   { timestamps: true } // automatically adds createdAt and updatedAt
 );

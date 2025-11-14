@@ -28,7 +28,7 @@ const perfumeSchema = z
         (val) => !isNaN(val) && Number(val) >= 0,
         "Enter valid stock number"
       ),
-    image: z.any().refine((files) => files && files.length > 0, "Image is required"),
+    image: z.any().optional(),
     rating: z
       .string()
       .refine(
@@ -61,11 +61,34 @@ function AddSignatureSeries() {
     resolver: zodResolver(perfumeSchema),
   });
 
-  const onSubmit = async(data) => {
-    console.log("Perfume Data:", data);
-    alert("Perfume added successfully!");
+  const onSubmit = async (data) => {
+  try {
+    // REMOVE image from data
+   
+    console.log("Perfume data",data);
   
-  };
+    const res = await fetch("http://localhost:5000/signature-series/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+    console.log("Server Response:", result);
+
+    if (res.ok) {
+      alert("Perfume added successfully!");
+    } else {
+      alert("Error: " + result.message);
+    }
+  } catch (error) {
+    console.error("POST Error:", error);
+    alert("Something went wrong");
+  }
+};
+
 
   // Auto-generate slug
   const handleSlug = (e) => {
@@ -86,10 +109,11 @@ function AddSignatureSeries() {
     <div className="container py-5">
       <h2 className="text-center mb-4">Add SignatureSeries</h2>
 
-      <form
+      <form  enctype="multipart/form-data"
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto p-4 border rounded shadow-sm bg-light"
         style={{ maxWidth: "600px" }}
+        
       >
         {/* Perfume Name */}
         <div className="mb-3">

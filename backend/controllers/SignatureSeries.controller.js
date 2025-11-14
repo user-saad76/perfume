@@ -1,8 +1,14 @@
  import  SignatureSeries  from "../models/SignatureSeries.model.js";
+
  export const CreateSignatureSeries = async(req,res)=>{
      const data = req.body;
+    
+      if (req.file) {
+      console.log("Uploaded file:", req.file); // Log the full file object
+      data.image = req.file.path || req.file.filename; // save path or filename depending on storage
+    }
      await SignatureSeries.create(data)
-     console.log(data);
+     console.log("Hello",data);
      
    res.json({message:'Create SignatureSeries endpoint called',data})
 }
