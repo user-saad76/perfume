@@ -61,18 +61,26 @@ function AddSignatureSeries() {
     resolver: zodResolver(perfumeSchema),
   });
 
-  const onSubmit = async (data) => {
+ const onSubmit = async (data) => {
   try {
-    // REMOVE image from data
-   
-    console.log("Perfume data",data);
-  
+    const formData = new FormData();
+
+    // Add all fields
+    Object.keys(data).forEach((key) => {
+      if (key !== "image") {
+        formData.append(key, data[key]);
+      }
+    });
+
+    // Add image file
+    const fileInput = document.querySelector("input[type='file']");
+    if (fileInput && fileInput.files[0]) {
+      formData.append("image", fileInput.files[0]);
+    }
+
     const res = await fetch("http://localhost:5000/signature-series/create", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      body: formData, // NO JSON, NO headers
     });
 
     const result = await res.json();
@@ -88,6 +96,7 @@ function AddSignatureSeries() {
     alert("Something went wrong");
   }
 };
+
 
 
   // Auto-generate slug
@@ -109,7 +118,7 @@ function AddSignatureSeries() {
     <div className="container py-5">
       <h2 className="text-center mb-4">Add SignatureSeries</h2>
 
-      <form  enctype="multipart/form-data"
+      <form encType="multipart/form-data"
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto p-4 border rounded shadow-sm bg-light"
         style={{ maxWidth: "600px" }}
