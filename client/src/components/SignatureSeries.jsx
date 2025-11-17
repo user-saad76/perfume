@@ -1,9 +1,24 @@
-import React from "react";
-import card1 from "../assets/Untitled design (5).png";
-import card2 from "../assets/Untitled design (10).png";
-import card3 from "../assets/Untitled design (17).png";
+import React, { useEffect, useState } from "react";
 
 function SignatureSeries() {
+  const [signatureSeries, setSignatureSeries] = useState([]);
+
+  useEffect(() => {
+    const getAllSignatureSeries = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/signature-series");
+        const data = await res.json();
+         console.log("API Response:", data);
+       setSignatureSeries(data.AllSignatureSeries || []);
+
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
+
+    getAllSignatureSeries();
+  }, []);
+
   return (
     <section className="py-5 bg-light">
       <div className="container">
@@ -11,83 +26,51 @@ function SignatureSeries() {
 
         <div className="row g-4">
 
-          {/* Card 1 */}
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm text-center">
-              <img src={card1} className="card-img-top" alt="Men Perfume" />
-              <div className="card-body">
-                <h5 className="fw-bold">GULSCENT Men</h5>
-                <p>Premium fragrance for men that lasts all day.</p>
+          {signatureSeries?.map((item, index) => (
+            <div className="col-md-4" key={index}>
+              <div className="card h-100 shadow-sm text-center">
 
-                {/* Price */}
-                <h5 className="text-danger">$99 <small className="text-muted text-decoration-line-through">$120</small></h5>
+                {/* Image */}
+                <img
+                  src={item.image?.secure_url}
+                  className="card-img-top"
+                  alt={item.name}
+                  style={{ height: "300px", objectFit: "cover" }}
+                />
 
-                {/* Quality */}
-                <span className="badge bg-success mb-2">Excellent</span>
+                <div className="card-body">
+                  {/* Name */}
+                  <h5 className="fw-bold">{item.name}</h5>
 
-                {/* Rating */}
-                <div className="text-warning">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-half"></i>
+                  {/* Description */}
+                  <p>{item.description?.slice(0, 60)}...</p>
+
+                  {/* Price */}
+                  <h5 className="text-danger">
+                    Rs {item.discountPrice || item.price}
+                    {item.discountPrice && (
+                      <small className="text-muted text-decoration-line-through ms-2">
+                        Rs {item.price}
+                      </small>
+                    )}
+                  </h5>
+
+                  {/* Rating */}
+                  <div className="text-warning">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <i
+                        key={i}
+                        className={
+                          i < item.rating ? "bi bi-star-fill" : "bi bi-star"
+                        }
+                      ></i>
+                    ))}
+                  </div>
                 </div>
+
               </div>
             </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm text-center">
-              <img src={card2} className="card-img-top" alt="Women Perfume" />
-              <div className="card-body">
-                <h5 className="fw-bold">GULSCENT Women</h5>
-                <p>Elegant floral notes with a lasting impression.</p>
-
-                {/* Price */}
-                <h5 className="text-danger">$109 <small className="text-muted text-decoration-line-through">$130</small></h5>
-
-                {/* Quality */}
-                <span className="badge bg-success mb-2">Excellent</span>
-
-                {/* Rating */}
-                <div className="text-warning">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm text-center">
-              <img src={card3} className="card-img-top" alt="Attar Perfume" />
-              <div className="card-body">
-                <h5 className="fw-bold">GULSCENT Attar</h5>
-                <p>Exquisite attar collection for fragrance lovers.</p>
-
-                {/* Price */}
-                <h5 className="text-danger">$70 <small className="text-muted text-decoration-line-through">$80</small></h5>
-
-                {/* Quality */}
-                <span className="badge bg-success mb-2">Premium</span>
-
-                {/* Rating */}
-                <div className="text-warning">
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-fill"></i>
-                  <i className="bi bi-star-half"></i>
-                  <i className="bi bi-star"></i>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
 
         </div>
       </div>

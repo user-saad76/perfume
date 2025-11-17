@@ -4,18 +4,18 @@
      const data = req.body;
     
    if (req.file) {
-  console.log("Uploaded file:", req.file);
+      console.log("Uploaded file:", req.file);
 
      data.image = {
-    public_id: req.file.public_id,
+    public_id: req.file.filename,
     secure_url: req.file.secure_url || req.file.path || req.file.url
-  };
+     };
    }
 
      await SignatureSeries.create(data)
      console.log("Hello",data);
      
-   res.json({message:'Create SignatureSeries endpoint called',data})
+   res.json({message:'Create SignatureSeries endpoint called'})
 }
  export const getAllSignatureSeries = async(req,res)=>{
   

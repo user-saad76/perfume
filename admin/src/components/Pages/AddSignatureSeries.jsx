@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+// 👉 Toastify
+import { ToastContainer, toast } from "react-toastify";
+
 const perfumeSchema = z
   .object({
     name: z.string().min(2, "Perfume name is required"),
@@ -39,18 +42,22 @@ const perfumeSchema = z
         "Rating must be between 1 and 5"
       ),
   })
-  .refine((data) => {
-    if (data.discountPrice && Number(data.discountPrice) > Number(data.price)) {
-      return false;
+  .refine(
+    (data) => {
+      if (data.discountPrice && Number(data.discountPrice) > Number(data.price)) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "Discount price cannot be greater than original price",
+      path: ["discountPrice"],
     }
-    return true;
-  }, {
-    message: "Discount price cannot be greater than original price",
-    path: ["discountPrice"],
-  });
+  );
 
 function AddSignatureSeries() {
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -61,52 +68,50 @@ function AddSignatureSeries() {
     resolver: zodResolver(perfumeSchema),
   });
 
- const onSubmit = async (data) => {
-  try {
-    const formData = new FormData();
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
 
-    // Add all fields
-    Object.keys(data).forEach((key) => {
-      if (key !== "image") {
-        formData.append(key, data[key]);
+      Object.keys(data).forEach((key) => {
+        if (key !== "image") {
+          formData.append(key, data[key]);
+        }
+      });
+
+      const fileInput = document.querySelector("input[type='file']");
+      if (fileInput && fileInput.files[0]) {
+        formData.append("image", fileInput.files[0]);
       }
-    });
 
-    // Add image file
-    const fileInput = document.querySelector("input[type='file']");
-    if (fileInput && fileInput.files[0]) {
-      formData.append("image", fileInput.files[0]);
+      setLoading(true);
+
+      const res = await fetch("http://localhost:5000/signature-series/create", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await res.json();
+      console.log("Server Response:", result);
+
+      if (res.ok) {
+        toast.success("Perfume added successfully!");
+      } else {
+        toast.error(result.message || "Something went wrong!");
+      }
+    } catch (error) {
+      console.error("POST Error:", error);
+      toast.error("Something went wrong!");
     }
 
-    const res = await fetch("http://localhost:5000/signature-series/create", {
-      method: "POST",
-      body: formData, // NO JSON, NO headers
-    });
+    setLoading(false);
+  };
 
-    const result = await res.json();
-    console.log("Server Response:", result);
-
-    if (res.ok) {
-      alert("Perfume added successfully!");
-    } else {
-      alert("Error: " + result.message);
-    }
-  } catch (error) {
-    console.error("POST Error:", error);
-    alert("Something went wrong");
-  }
-};
-
-
-
-  // Auto-generate slug
   const handleSlug = (e) => {
     const nameValue = e.target.value;
     const slugValue = nameValue.toLowerCase().replace(/\s+/g, "-");
     setValue("slug", slugValue);
   };
 
-  // Image preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -118,11 +123,11 @@ function AddSignatureSeries() {
     <div className="container py-5">
       <h2 className="text-center mb-4">Add SignatureSeries</h2>
 
-      <form encType="multipart/form-data"
+      <form
+        encType="multipart/form-data"
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto p-4 border rounded shadow-sm bg-light"
         style={{ maxWidth: "600px" }}
-        
       >
         {/* Perfume Name */}
         <div className="mb-3">
@@ -236,10 +241,13 @@ function AddSignatureSeries() {
           )}
         </div>
 
-        <button type="submit" className="btn btn-primary w-100">
-          Add Perfume
+        <button type="submit" disabled={loading} className="btn btn-primary w-100">
+          {loading ? "Saving..." : "Add Perfume"}
         </button>
       </form>
+
+      {/* Toast Container */}
+      <ToastContainer position="top-right" autoClose={2000} />
     </div>
   );
 }
