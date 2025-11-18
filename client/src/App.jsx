@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Navbar from './components/Navbar'
 import Home from './Pages/Home';
 import Shop from './Pages/Shop';
+import DetailPage from './Pages/DetailPage';
+
 
 function App() {
   
@@ -16,6 +18,8 @@ function App() {
          <Route  path='/' element={ <Home/>} />
            <Route  path='/home' element={ <Home/>} />
           <Route  path='/shop' element={ <Shop/>} />
+          <Route  path='/signature-series/:slug' element={ <DetailPage/>} />
+           
      </Routes>
    
     

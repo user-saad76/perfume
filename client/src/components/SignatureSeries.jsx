@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
+
 
 function SignatureSeries() {
   const [signatureSeries, setSignatureSeries] = useState([]);
@@ -40,7 +42,14 @@ function SignatureSeries() {
 
                 <div className="card-body">
                   {/* Name */}
-                  <h5 className="fw-bold">{item.name}</h5>
+                 <h5 className="fw-bold">
+                 <Link
+                   to={`/signature-series/${item.slug}`} 
+                   className="text-dark text-decoration-none"
+                  >
+                {item.name}
+                   </Link>
+                  </h5>
 
                   {/* Description */}
                   <p>{item.description?.slice(0, 60)}...</p>

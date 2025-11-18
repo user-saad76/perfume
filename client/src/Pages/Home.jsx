@@ -1,3 +1,4 @@
+import FeaturedCollection from "../components/FeaturedCollection"
 import PerfumeBanners from "../components/PerfemeBanners"
 import SignatureSeries from "../components/SignatureSeries"
 
@@ -6,6 +7,7 @@ function Home() {
         <>
         <PerfumeBanners/>
         <SignatureSeries/>
+        <FeaturedCollection/>
         </>
     )
 }
