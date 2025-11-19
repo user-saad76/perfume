@@ -19,11 +19,11 @@
 }
  export const getAllSignatureSeries = async(req,res)=>{
   
-    const  AllSignatureSeries = await SignatureSeries.find({})
+    const  getAllproducts = await SignatureSeries.find({})
      // const Qdata = req.query;
    // console.log(Qdata);
    
-   res.json({message:'SignatureSeries endpoint called', AllSignatureSeries})
+   res.json({message:'SignatureSeries endpoint called', getAllproducts})
 }
 export const getSignatureSeriesById = async(req,res)=>{
    const {id} = req.params;

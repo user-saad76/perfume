@@ -81,8 +81,8 @@ function Navbar() {
                   style={{ cursor: "pointer" }}
                 ></i>
                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                  <li><a className="dropdown-item" href="#">Sign In</a></li>
-                  <li><a className="dropdown-item" href="#">Sign Up</a></li>
+                  <li><Link className="dropdown-item" to ="#">Sign In</Link></li>
+                  <li><Link className="dropdown-item" to ="/sign-up">Sign Up</Link></li>
                 </ul>
               </div>
 

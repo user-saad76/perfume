@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { useFetch } from "../hooks/useFetch";
 
 
-function SignatureSeries() {
-  const [signatureSeries, setSignatureSeries] = useState([]);
-
-  useEffect(() => {
-    const getAllSignatureSeries = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/signature-series");
-        const data = await res.json();
-         console.log("API Response:", data);
-       setSignatureSeries(data.AllSignatureSeries || []);
-
-      } catch (error) {
-        console.log("Error fetching data:", error);
-      }
-    };
-
-    getAllSignatureSeries();
-  }, []);
+function SignatureSeries( {signatureSeries}) {
+  
+  
 
   return (
     <section className="py-5 bg-light">
@@ -28,7 +14,7 @@ function SignatureSeries() {
 
         <div className="row g-4">
 
-          {signatureSeries?.map((item, index) => (
+          {signatureSeries.map((item, index) => (
             <div className="col-md-4" key={index}>
               <div className="card h-100 shadow-sm text-center">
 

@@ -12,6 +12,7 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.0",
     "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
