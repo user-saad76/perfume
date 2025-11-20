@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { useFetch } from "../hooks/useFetch";
 
 
 function SignatureSeries( {signatureSeries}) {
   
   
-
   return (
     <section className="py-5 bg-light">
       <div className="container">

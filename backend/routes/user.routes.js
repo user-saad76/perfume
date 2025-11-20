@@ -1,10 +1,11 @@
 import express from 'express'
-import { signupUser } from '../controllers/user.controller.js'
+import { signupUser,signinUser} from '../controllers/user.controller.js'
 
  const router = express.Router()
 
  
  router.route('/users/signup').post(signupUser)
+ router.route('/users/signin').post(signinUser)
 
 
 

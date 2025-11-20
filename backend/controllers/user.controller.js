@@ -7,5 +7,25 @@
     data.password = hashedPassword;
     
      await User.create(data)
-   res.json({message:'Create SignatureSeries endpoint called'})
+   res.json({message:'Create User endpoint called'})
+}
+export const signinUser = async(req,res)=>{
+      const {email,password} = req.body;
+      const user = await User.find({email})
+       console.log('User',user);
+       if(!user||user.length === 0){
+         return res.status(404).json({
+            success:false,
+            message:'User not found'
+         })
+       }
+        const isMatched = await bcrypt.compare(password,user[0].password)
+        if(!isMatched){
+          return res.status(403).json(({
+            success:false,
+            message:'Invalid password'
+          }))
+        }
+       
+   res.json({message:' User login-in'})
 }
