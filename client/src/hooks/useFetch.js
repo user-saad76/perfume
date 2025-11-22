@@ -9,7 +9,10 @@ import { useState,useEffect} from "react"
          const getAllproducts = async () => {
            try {
             setLoading(true);
-             const res = await fetch(url);
+             const res = await fetch(url, {
+             credentials: "include",
+             body: JSON.stringify(data),
+           });
              const data = await res.json();
              setData(data.getAllproducts||[]);
            } catch (error) {
