@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
 import { usePost } from "../hooks/usePost";
 
 // Zod validation schema
@@ -14,6 +15,7 @@ const SignInSchema = z.object({
     .min(6, "Password must be at least 6 characters"),
   remember: z.boolean().optional(),
 });
+
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,6 +34,7 @@ export default function SignIn() {
       remember: false,
     },
   });
+  const navigate =  useNavigate();
 
   const { postData, response, error, loading } = usePost(
     "http://localhost:5000/users/signin"
@@ -43,6 +46,7 @@ export default function SignIn() {
     try {
       console.log("Form Data:", data);
       await postData(data);
+      navigate('/')
 
       alert("Signed in successfully (demo)");
     } catch (err) {

@@ -31,10 +31,14 @@ export const signinUser = async(req,res)=>{
         //  }
        
 
-         const token = jwt.sign({user},process.env.JWT_SECRET,{ expiresIn: '1h'})
+         const token = jwt.sign({ id: user._id },process.env.JWT_SECRET,{ expiresIn: '1h'})
          res.cookie("jwt-token",token,{httpOnly:true,secure:false,sameSite:"lax",maxAge:3600000}).json(
           {
             message:' User has been login-in'
           }
         )
+}
+export const getMe = async(req,res,next)=>{
+   const user = await User.findById(req.user.id)
+   res.status(200).json(user)
 }

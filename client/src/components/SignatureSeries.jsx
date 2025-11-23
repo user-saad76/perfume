@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 
-function SignatureSeries( {signatureSeries}) {
+function SignatureSeries( {signatureSeries }) {
   
-  
+  console.log("SignatureSeries data:", signatureSeries);
+
   return (
     <section className="py-5 bg-light">
       <div className="container">

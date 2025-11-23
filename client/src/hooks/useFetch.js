@@ -11,10 +11,10 @@ import { useState,useEffect} from "react"
             setLoading(true);
              const res = await fetch(url, {
              credentials: "include",
-             body: JSON.stringify(data),
-           });
+              method: "GET",     // GET request → body nahi hoti
+              });
              const data = await res.json();
-             setData(data.getAllproducts||[]);
+             setData(data);
            } catch (error) {
              console.log("Error fetching data:", error);
            }

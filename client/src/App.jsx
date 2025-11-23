@@ -7,11 +7,17 @@ import Shop from './Pages/Shop';
 import DetailPage from './Pages/DetailPage';
 import SignUp from './Pages/SignUp';
 import SignIn from './Pages/SignIn';
+import { useFetch } from './hooks/useFetch';
+
 
 
 
 function App() {
   
+  const {Data:user,error,loading} = useFetch('http://localhost:5000/users/me')
+  console.log("User-data",user);
+  
+ 
  
 
   return (

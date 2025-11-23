@@ -9,7 +9,7 @@ function Home() {
     return(
         <>
         <PerfumeBanners/>
-        <SignatureSeries signatureSeries = {signatureSeries}/>
+        <SignatureSeries signatureSeries={signatureSeries?.getAllproducts || []}/>
         <FeaturedCollection/>
         </>
     )
