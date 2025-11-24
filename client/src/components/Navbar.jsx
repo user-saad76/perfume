@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router";
+import { useAuth } from "../contexts/authProvider";
+
 
 function Navbar() {
   const [cartCount] = useState(3);
@@ -16,6 +18,10 @@ function Navbar() {
     setSearchValue("");
     setShowSearch(false);
   };
+
+  
+   const  {user,loading,error} = useAuth()
+  
 
   return (
     <>
@@ -80,10 +86,25 @@ function Navbar() {
                   aria-expanded="false"
                   style={{ cursor: "pointer" }}
                 ></i>
-                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                  <li><Link className="dropdown-item" to ="/sign-in">Sign In</Link></li>
-                  <li><Link className="dropdown-item" to ="/sign-up">Sign Up</Link></li>
-                </ul>
+
+                 {
+                user  && user.name? (
+          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+         <li><Link className="dropdown-item" to="/dashboard">Dashboard: {user.name}</Link></li>
+           <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
+         </ul>
+        ) : (
+       <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+        <li><Link className="dropdown-item" to="/sign-in">Sign In</Link></li>
+        <li><Link className="dropdown-item" to="/sign-up">Sign Up</Link></li>
+      </ul>
+  )} 
+
+       {/* <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+        <li><Link className="dropdown-item" to="/sign-in">Sign In</Link></li>
+        <li><Link className="dropdown-item" to="/sign-up">Sign Up</Link></li>
+      </ul> */}
+
               </div>
 
             </div>

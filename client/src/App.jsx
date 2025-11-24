@@ -8,22 +8,24 @@ import DetailPage from './Pages/DetailPage';
 import SignUp from './Pages/SignUp';
 import SignIn from './Pages/SignIn';
 import { useFetch } from './hooks/useFetch';
+import AuthProvider from './contexts/authProvider';
 
 
 
 
 function App() {
   
-  const {Data:user,error,loading} = useFetch('http://localhost:5000/users/me')
-  console.log("User-data",user);
+  // const {Data:user,error,loading} = useFetch('http://localhost:5000/users/me')
+  // console.log("User-data",user);
   
  
  
 
   return (
     <>
-    <BrowserRouter>
-       <Navbar/>
+    <AuthProvider>
+      <BrowserRouter>
+       <Navbar />
      <Routes>
          <Route  path='/' element={ <Home/>} />
            <Route  path='/home' element={ <Home/>} />
@@ -33,9 +35,9 @@ function App() {
            <Route  path='/sign-in' element={ <SignIn/>} />
            
      </Routes>
-   
+  </BrowserRouter>
+    </AuthProvider>
     
-  </BrowserRouter>, 
     </>
   )
 }
