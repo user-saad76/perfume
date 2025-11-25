@@ -42,3 +42,10 @@ export const getMe = async(req,res,next)=>{
    const user = await User.findById(req.user.id)
    res.status(200).json(user)
 }
+export const Logout = async(req,res,next)=>{
+      res.cookie("jwt-token",null,{httpOnly:true,secure:false,sameSite:"lax",maxAge:0}).json(
+      {
+            message:' User has been login-out'
+      }
+        )
+}

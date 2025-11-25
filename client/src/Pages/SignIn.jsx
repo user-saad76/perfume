@@ -4,6 +4,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
 import { usePost } from "../hooks/usePost";
+import { useAuth } from "../contexts/authProvider";
+import { Navigate } from "react-router";
 
 // Zod validation schema
 const SignInSchema = z.object({
@@ -18,6 +20,15 @@ const SignInSchema = z.object({
 
 
 export default function SignIn() {
+
+
+   const {user,error:userError,loading:loadingError} = useAuth();
+ //  if(userLoading) return <p>Loading.....</p>
+   if(user && user.name) return <Navigate to ='/'/>
+
+
+
+
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState("");
 
@@ -46,7 +57,8 @@ export default function SignIn() {
     try {
       console.log("Form Data:", data);
       await postData(data);
-      navigate('/')
+     // navigate('/');
+      window.location.href = '/'
 
       alert("Signed in successfully (demo)");
     } catch (err) {

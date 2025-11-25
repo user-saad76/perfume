@@ -20,7 +20,7 @@ function Navbar() {
   };
 
   
-   const  {user,loading,error} = useAuth()
+   const  {user,loading,error,logout} = useAuth()
   
 
   return (
@@ -91,7 +91,7 @@ function Navbar() {
                 user  && user.name? (
           <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
          <li><Link className="dropdown-item" to="/dashboard">Dashboard: {user.name}</Link></li>
-           <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
+           <li><button onClick={logout} className="dropdown-item" type="button">Logout</button></li>
          </ul>
         ) : (
        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

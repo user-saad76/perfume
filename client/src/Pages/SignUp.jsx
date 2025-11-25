@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePost } from "../hooks/usePost";
+import { useAuth } from "../contexts/authProvider";
+import { Navigate } from "react-router";
 
 /**
  * Zod schema
@@ -32,6 +34,13 @@ const signUpSchema = z
   });
 
 export default function SignUp() {
+ 
+   const {user,error:userError,loading:loadingError} = useAuth();
+ //  if(userLoading) return <p>Loading.....</p>
+   if(user && user.name) return <Navigate to ='/'/>
+
+
+
   const [showPassword, setShowPassword] = useState(false);
 
    const {postData,response,error,loading} = usePost('http://localhost:5000/users/signup');

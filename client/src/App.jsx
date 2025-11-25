@@ -7,8 +7,10 @@ import Shop from './Pages/Shop';
 import DetailPage from './Pages/DetailPage';
 import SignUp from './Pages/SignUp';
 import SignIn from './Pages/SignIn';
-import { useFetch } from './hooks/useFetch';
+//import { useFetch } from './hooks/useFetch';
 import AuthProvider from './contexts/authProvider';
+import Dashboard from './Pages/Dashboard';
+import Protected from './Pages/Protected';
 
 
 
@@ -33,6 +35,7 @@ function App() {
           <Route  path='/signature-series/:slug' element={ <DetailPage/>} />
            <Route  path='/sign-up' element={ <SignUp/>} />
            <Route  path='/sign-in' element={ <SignIn/>} />
+            <Route  path='/dashboard' element={<Protected><Dashboard/></Protected> } />
            
      </Routes>
   </BrowserRouter>
