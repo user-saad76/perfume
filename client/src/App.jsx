@@ -11,6 +11,7 @@ import SignIn from './Pages/SignIn';
 import AuthProvider from './contexts/authProvider';
 import Dashboard from './Pages/Dashboard';
 import Protected from './Pages/Protected';
+import CartProvider from './contexts/CartProvider';
 
 
 
@@ -26,6 +27,7 @@ function App() {
   return (
     <>
     <AuthProvider>
+      <CartProvider>
       <BrowserRouter>
        <Navbar />
      <Routes>
@@ -39,6 +41,7 @@ function App() {
            
      </Routes>
   </BrowserRouter>
+  </CartProvider>
     </AuthProvider>
     
     </>

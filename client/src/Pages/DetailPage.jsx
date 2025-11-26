@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useCart } from "../contexts/CartProvider";
+
 
 function DetailPage() {
     const { slug } = useParams();
@@ -7,6 +9,7 @@ function DetailPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
+       const {addToCart,removeFromCart} = useCart()
 
     useEffect(() => {
         const getSignatureSeriesBySlug = async () => {
@@ -109,7 +112,7 @@ function DetailPage() {
                                         <span className="mx-3 fw-bold">{quantity}</span>
                                         <button className="btn btn-outline-dark" onClick={handleIncrease}>+</button>
                                     </div>
-                                    <button className="btn btn-dark flex-grow-1" onClick={handleAddToCart}>
+                                    <button className="btn btn-dark flex-grow-1" onClick={addToCart}>
                                         Add to Cart
                                     </button>
                                 </div>
