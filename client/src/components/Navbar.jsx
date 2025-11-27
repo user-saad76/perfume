@@ -3,10 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router";
 import { useAuth } from "../contexts/authProvider";
+import { useCart } from "../contexts/CartProvider";
 
 
 function Navbar() {
-  const [cartCount] = useState(3);
+ 
   const [showSearch, setShowSearch] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -21,6 +22,10 @@ function Navbar() {
 
   
    const  {user,loading,error,logout} = useAuth()
+
+     const {cartstate} = useCart();
+     console.log("Getting cart",cartstate);
+     
   
 
   return (
@@ -72,7 +77,7 @@ function Navbar() {
                   className="badge bg-danger text-white rounded-circle position-absolute"
                   style={{ fontSize: "0.7rem", top: "-5px", right: "-10px" }}
                 >
-                  {cartCount}
+                  {cartstate.length}
                 </span>
               </div>
 

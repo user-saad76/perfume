@@ -9,7 +9,7 @@ function DetailPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
-       const {addToCart,removeFromCart} = useCart()
+       const {addToCart,incrementFromCart,decrementFromCart} = useCart()
 
     useEffect(() => {
         const getSignatureSeriesBySlug = async () => {
@@ -108,11 +108,11 @@ function DetailPage() {
                                 {/* Quantity selector + Add to Cart */}
                                 <div className="d-flex align-items-center gap-3 mt-3">
                                     <div className="d-flex align-items-center">
-                                        <button className="btn btn-outline-dark" onClick={handleDecrease}>-</button>
+                                        <button className="btn btn-outline-dark" onClick={()=>decrementFromCart(product._id)}>-</button>
                                         <span className="mx-3 fw-bold">{quantity}</span>
-                                        <button className="btn btn-outline-dark" onClick={handleIncrease}>+</button>
+                                        <button className="btn btn-outline-dark" onClick={()=>incrementFromCart(product._id)}>+</button>
                                     </div>
-                                    <button className="btn btn-dark flex-grow-1" onClick={addToCart}>
+                                    <button className="btn btn-dark flex-grow-1" onClick={()=>addToCart(product)}>
                                         Add to Cart
                                     </button>
                                 </div>
