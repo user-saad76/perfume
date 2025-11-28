@@ -72,7 +72,7 @@ function Navbar() {
 
               {/* Shopping Bag with Badge */}
               <div className="position-relative">
-                <i className="bi bi-bag text-white fs-5"></i>
+                <Link className="bi bi-bag text-white fs-5" to = '/shopping-cart'></Link>
                 <span
                   className="badge bg-danger text-white rounded-circle position-absolute"
                   style={{ fontSize: "0.7rem", top: "-5px", right: "-10px" }}

@@ -3,19 +3,33 @@ import { createContext, useContext, useState,useReducer } from "react"
 const CartContext = createContext();
 
 const cartReducer =(state,action)=>{
-  if(action.type == 'ADD_TO_CART'){
-    action.payload.quantity = 1;
-    console.log("checking state",state);
 
-    let newState = [...state,action.payload]
-     state = newState;
-    console.log('Updated state',state);
-     return newState;  
-    
+  if(action.type == 'ADD_TO_CART'){
+  console.log("checking state", state);
+
+  // Check if item already exists
+  const existingItem = state.find(item => item._id === action.payload._id);
+
+  if (existingItem) {
+    // If exists → increase quantity
+    const newState = state.map(item =>
+      item._id === action.payload._id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    );
+    console.log("Item already exists, incrementing", newState);
+    return newState;
+  }
+
+  // If not exists → add new item with quantity = 1
+  const newItem = { ...action.payload, quantity: 1 };
+  const newState = [...state, newItem];
+  console.log("Added new item", newState);
+  return newState;
   }
   if(action.type == 'REMOVE_FROM_CART'){
      console.log(' remove cart dispatcher called');
-     const newState = state.filter(item => item.id !== action.payload)
+     const newState = state.filter(item => item._id !== action.payload)
      return newState;
   }
   if(action.type == 'CLEAR_FROM_CART'){
@@ -24,7 +38,7 @@ const cartReducer =(state,action)=>{
   }
   if(action.type == 'INCREMENT_CART'){
      console.log('increment cart dispatcher called');
-     let newState =  state.map(item => item.id === action.payload ? {
+     let newState =  state.map(item => item._id === action.payload ? {
             ...item,quantity:item.quantity+1
         }  :item)
         console.log("incrementing cart",newState);
@@ -33,7 +47,7 @@ const cartReducer =(state,action)=>{
   }
   if(action.type == 'DECREMENT_CART'){
       console.log('decrement cart dispatcher called');
-      return state.map(item => item.id === action.payload && item.quantity > 1 ? 
+      return state.map(item => item._id === action.payload && item.quantity > 1 ? 
             { ...item,quantity:item.quantity - 1}
             : item
       )
@@ -45,10 +59,10 @@ function CartProvider({children}) {
     const [cartstate,dispatch] = useReducer(cartReducer,cart)
 
     const addToCart = (product)=> dispatch({type:'ADD_TO_CART',payload:product})
-    const removeFromCart = ()=> dispatch({type:'REMOVE_FROM_CART'})
-     const clearFromCart = ()=> dispatch({type:'CLEAR_FROM_CART'})
-      const incrementFromCart = (id)=> dispatch({type:'INCREMENT_CART',payload:id})
-       const decrementFromCart = (id)=> dispatch({type:'DECREMENT_CART',payload:id})
+    const removeFromCart = (_id)=> dispatch({type:'REMOVE_FROM_CART',payload:_id})
+     const clearFromCart = (_id)=> dispatch({type:'CLEAR_FROM_CART',payload:_id})
+      const incrementFromCart = (_id)=> dispatch({type:'INCREMENT_CART',payload:_id})
+       const decrementFromCart = (_id)=> dispatch({type:'DECREMENT_CART',payload:_id})
         const CartTotal = ()=> dispatch({type:'CLEAR_FROM_CART'})
 
 

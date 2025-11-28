@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { usePost } from "../hooks/usePost";
 import { useAuth } from "../contexts/authProvider";
 import { Navigate } from "react-router";
@@ -151,7 +151,7 @@ export default function SignIn() {
 
           <div className="text-center mt-3">
             <small>
-              Don't have an account? <a href="#">Register</a>
+              Don't have an account? <Link to ="/sign-up">Register</Link>
             </small>
           </div>
         </div>

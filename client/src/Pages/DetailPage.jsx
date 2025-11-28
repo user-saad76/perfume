@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useCart } from "../contexts/CartProvider";
+import { useAuth } from "../contexts/authProvider";
 
 
 function DetailPage() {
@@ -8,8 +9,9 @@ function DetailPage() {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [quantity, setQuantity] = useState(1);
-       const {addToCart,incrementFromCart,decrementFromCart} = useCart()
+
+       const {addToCart} = useCart()
+        const {user} = useAuth()
 
     useEffect(() => {
         const getSignatureSeriesBySlug = async () => {
@@ -33,16 +35,7 @@ function DetailPage() {
     if (error) return <h2 className="text-center text-danger mt-5">Error: {error}</h2>;
     if (!product) return <h2 className="text-center mt-5">Product not found</h2>;
 
-    const handleDecrease = () => {
-        if (quantity > 1) setQuantity(quantity - 1);
-    };
-    const handleIncrease = () => {
-        setQuantity(quantity + 1);
-    };
-    const handleAddToCart = () => {
-        console.log(`Added ${quantity} of ${product.name} to cart`);
-        alert(`${quantity} ${product.name} added to cart!`);
-    };
+  
 
     return (
         <div className="container py-5">
@@ -107,14 +100,16 @@ function DetailPage() {
 
                                 {/* Quantity selector + Add to Cart */}
                                 <div className="d-flex align-items-center gap-3 mt-3">
-                                    <div className="d-flex align-items-center">
-                                        <button className="btn btn-outline-dark" onClick={()=>decrementFromCart(product._id)}>-</button>
-                                        <span className="mx-3 fw-bold">{quantity}</span>
-                                        <button className="btn btn-outline-dark" onClick={()=>incrementFromCart(product._id)}>+</button>
-                                    </div>
-                                    <button className="btn btn-dark flex-grow-1" onClick={()=>addToCart(product)}>
+                                    {
+                                      
+                                      user && user?.name ?  <button className="btn btn-dark flex-grow-1" onClick={()=>addToCart(product)}>
+                                        Add to Cart
+                                    </button>:<button className="btn btn-dark flex-grow-1"  onClick={() => alert("You can add to cart when you may sign-in")}>
                                         Add to Cart
                                     </button>
+
+
+                                    }
                                 </div>
                             </div>
                         </div>

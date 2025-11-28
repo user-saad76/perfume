@@ -12,6 +12,7 @@ import AuthProvider from './contexts/authProvider';
 import Dashboard from './Pages/Dashboard';
 import Protected from './Pages/Protected';
 import CartProvider from './contexts/CartProvider';
+import ShoppingCart from './Pages/ShoppingCart';
 
 
 
@@ -38,7 +39,7 @@ function App() {
            <Route  path='/sign-up' element={ <SignUp/>} />
            <Route  path='/sign-in' element={ <SignIn/>} />
             <Route  path='/dashboard' element={<Protected><Dashboard/></Protected> } />
-           
+              <Route  path='/shopping-cart' element={<Protected><ShoppingCart/></Protected> } />
      </Routes>
   </BrowserRouter>
   </CartProvider>
