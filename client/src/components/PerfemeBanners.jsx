@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import banner1 from "../assets/black.png";
+import banner1 from "../assets/new one banner.jpg";
 import banner2 from "../assets/women perfume.jpeg";
 import banner3 from "../assets/oud perfeme.avif";
 

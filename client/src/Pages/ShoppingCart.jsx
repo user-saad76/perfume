@@ -2,11 +2,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useCart } from "../contexts/CartProvider";
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 
 function ShoppingCart() {
   const { cartstate, incrementFromCart, decrementFromCart, removeFromCart } = useCart();
   const [total, setTotal] = useState(0);
   console.log("sdhfsd",cartstate);
+    const [Shipping,setShipping ] = useState(500)
   
 
   // Calculate total whenever cartstate changes
@@ -80,7 +82,7 @@ function ShoppingCart() {
 
           <div className="d-flex justify-content-between mb-2">
             <span>Shipping</span>
-            <span>Rs 0</span>
+            <span>Rs {Shipping}</span>
           </div>
 
           <div className="d-flex justify-content-between mb-2">
@@ -92,17 +94,17 @@ function ShoppingCart() {
 
           <div className="d-flex justify-content-between fw-bold">
             <span>Total</span>
-            <span>Rs {total}</span>
+            <span>Rs {total + Shipping}</span>
           </div>
         </div>
       </div>
 
       {/* Total + Checkout */}
       <div className="mt-4">
-        <h4 className="fw-bold">Total: Rs {total}</h4>
-        <button className="btn btn-dark mt-3 px-4 py-2 w-100">
+        <h4 className="fw-bold">Total: Rs{total + Shipping}</h4>
+        <Link className="btn btn-dark mt-3 px-4 py-2 w-100" type="button" to ='/checkout'>
           Proceed to Checkout
-        </button>
+        </Link>
       </div>
 
     </div>
