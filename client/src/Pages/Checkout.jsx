@@ -5,6 +5,7 @@ import * as z from "zod";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useCart } from "../contexts/CartProvider";
 import { useAuth } from "../contexts/authProvider";
+import { usePost } from "../hooks/usePost";
 
 // Zod schema for checkout form validation
 const checkoutSchema = z.object({
@@ -23,6 +24,9 @@ function Checkout() {
 
   const [shipping, setShipping] = useState(500);
   const [total, setTotal] = useState(0);
+  const { postData, response, error, loading } = usePost(
+    "http://localhost:5000/orders/create"
+  );
 
   useEffect(() => {
     const cartTotal = cartstate.reduce(
@@ -51,10 +55,33 @@ function Checkout() {
     }
   }, [user, reset]);
 
-  const onSubmit = (data) => {
-    console.log("Checkout Data:", data);
+ const onSubmit = async (data) => {
+  try {
+    console.log("Checkout-data",data);
+    
+    const orderData = {
+      ...data,
+      cartItems: cartstate.map(item => ({
+        productId: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      shippingCost: shipping,
+      totalAmount: total + shipping,
+      userId: user?._id || null,
+    };
+
+    console.log("Sending Order:", orderData);
+
+      await postData(orderData);
+
     alert("Order Placed Successfully!");
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Order Failed, Try Again!");
+  }
+};
 
   return (
     <div className="container py-5">
@@ -144,7 +171,7 @@ function Checkout() {
               <div className="invalid-feedback">{errors.paymentMethod?.message}</div>
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100" >
               Place Order
             </button>
           </form>

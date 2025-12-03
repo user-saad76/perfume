@@ -14,6 +14,7 @@ import Protected from './Pages/Protected';
 import CartProvider from './contexts/CartProvider';
 import ShoppingCart from './Pages/ShoppingCart';
 import Checkout from './Pages/Checkout';
+import OrderDetail from './Pages/OrderDetail';
 
 
 
@@ -42,6 +43,7 @@ function App() {
             <Route  path='/dashboard' element={<Protected><Dashboard/></Protected> } />
               <Route  path='/shopping-cart' element={<Protected><ShoppingCart/></Protected> } />
                <Route  path='/checkout' element={ <Checkout/>} />
+                <Route  path='/order-details' element={ <OrderDetail/>} />
      </Routes>
   </BrowserRouter>
   </CartProvider>

@@ -2,6 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import SignatureSeriesRoutes from './routes/SignatureSeries.routes.js'
 import  UserRoutes from './routes/user.routes.js'
+import  OrderRoutes from './routes/order.routes.js'
 import bodyParser from 'body-parser'
 import cookieParser from "cookie-parser";
 import { connectDB } from './config/db.js'
@@ -24,6 +25,7 @@ import cors from "cors";
 
  server.use(SignatureSeriesRoutes)
  server.use(UserRoutes)
+ server.use(OrderRoutes)
  server.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
     
