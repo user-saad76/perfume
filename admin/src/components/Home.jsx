@@ -1,4 +1,4 @@
-import AdminDashboard from "../AdminDashboard";
+import AdminDashboard from "./AdminDashboard";
 function Home() {
     return(
         <>

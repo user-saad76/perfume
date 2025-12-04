@@ -2,6 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import SignatureSeriesRoutes from './routes/SignatureSeries.routes.js'
 import  UserRoutes from './routes/user.routes.js'
+import  AdminUserRoutes from './routes/AdminUser.routes.js'
 import  OrderRoutes from './routes/order.routes.js'
 import bodyParser from 'body-parser'
 import cookieParser from "cookie-parser";
@@ -18,7 +19,8 @@ import cors from "cors";
  server.use(cookieParser());
  server.use(
   cors({
-    origin: "http://localhost:5173",   // Your frontend URL
+    origin: ["http://localhost:5173","http://localhost:5174"],// Your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,                 // Allow cookies, tokens, sessions
   })
 );
@@ -26,6 +28,7 @@ import cors from "cors";
  server.use(SignatureSeriesRoutes)
  server.use(UserRoutes)
  server.use(OrderRoutes)
+  server.use(AdminUserRoutes)
  server.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
     

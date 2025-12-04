@@ -97,12 +97,11 @@ function Navbar() {
                 style={{ width: "35px", height: "35px", objectFit: "cover" }}
               />
             </a>
-
+            
             <ul className="dropdown-menu dropdown-menu-end">
-              <li><a className="dropdown-item" href="#">Profile</a></li>
-              <li><a className="dropdown-item" href="#">Settings</a></li>
-              <li><hr className="dropdown-divider" /></li>
-              <li><a className="dropdown-item text-danger" href="#">Logout</a></li>
+              <li><Link className="dropdown-item" to ="/sign-up">Sign Up </Link></li>
+              <li><Link className="dropdown-item" to ="/sign-in">Sign In</Link></li>
+              
             </ul>
           </li>
 
