@@ -4,7 +4,7 @@ import { useFetch } from "../hooks/useFetch"
 export const AuthContext = createContext();
 
 function AuthProvider({children}) {
-    const {Data,error,loading} = useFetch('http://localhost:5000/AdminUsers/me')
+    const {Data,error,loading} = useFetch('http://localhost:5000//admin-users/admin')
 
     const logout = async () => {
     await fetch("http://localhost:5000/AdminUsers/log-out", {
@@ -15,7 +15,7 @@ function AuthProvider({children}) {
   }
 
     return(
-      <AuthContext.Provider value = {{user:Data,error,loading,logout}}>
+      <AuthContext.Provider value = {{admin:Data,error,loading,logout}}>
         {children}
       </AuthContext.Provider>
     )

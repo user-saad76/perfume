@@ -3,230 +3,210 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { usePost } from "../../../client/src/hooks/usePost";
+import { ToastContainer, toast } from "react-toastify";
 
 // Zod Schema
-const signupSchema = z.object({
+const adminSchema = z.object({
   fullName: z.string().min(2, "Full name is required"),
   email: z.string().email("Invalid email"),
-  phone: z
-    .string()
-    .min(11, "Phone number must be 11 digits")
-    .max(11, "Phone number must be 11 digits"),
+  phone: z.string().min(11, "Must be 11 digits").max(11, "Must be 11 digits"),
   address: z.string().min(5, "Address is required"),
-  cnic: z
-    .string()
-    .min(13, "CNIC must be 13 digits")
-    .max(13, "CNIC must be 13 digits"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  cnic: z.string().min(13, "Must be 13 digits").max(13, "Must be 13 digits"),
+  password: z.string().min(6, "Min 6 characters"),
   confirmPassword: z.string(),
-  image: z
-    .any()
-    .refine((file) => file?.length === 1, "Please upload one image")
-    .refine(
-      (file) => file?.[0]?.size <= 2 * 1024 * 1024,
-      "Max image size is 2MB"
-    ),
-});
+  image: z.any().optional(),
+}).refine(
+  (data) => data.password === data.confirmPassword,
+  {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  }
+);
 
-export default function SignUpWithImage() {
+export default function AdminSignup() {
   const [preview, setPreview] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-   const { postData, response, error, loading } = usePost(
-      "http://localhost:5000/admin-users/Admin-signup"
-    );
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    watch,
   } = useForm({
-    resolver: zodResolver(signupSchema),
+    resolver: zodResolver(adminSchema),
   });
 
   const imageFile = watch("image");
 
- const onSubmit = async (data) => {
-    console.log("SUBMIT ADMIN SIGN-UP",data);
-    
-  const formData = new FormData();
-  formData.append("fullName", data.fullName);
-  formData.append("email", data.email);
-  formData.append("phone", data.phone);
-  formData.append("address", data.address);
-  formData.append("cnic", data.cnic);
-  formData.append("password", data.password);
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
 
-   if (imageFile) {
-    formData.append("image", imageFile); // Must match multer field name
-  } else {
-    alert("Image is required");
-    return;
-  }
+      Object.keys(data).forEach((key) => {
+        if (key !== "image") {
+          formData.append(key, data[key]);
+        }
+      });
 
-  await postData(formData);
-};
+      if (imageFile && imageFile.length > 0) {
+        formData.append("image", imageFile[0]); // FIXED
+      } else {
+        toast.error("Image is required");
+        return;
+      }
 
-  // Preview Image
+      setLoading(true);
+
+      const res = await fetch("http://localhost:5000/admin-users/Admin-signup", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await res.json();
+      console.log("Server Response:", result);
+
+      if (res.ok) {
+        toast.success("Admin created successfully!");
+      } else {
+        toast.error(result.message || "Something went wrong!");
+      }
+    } catch (err) {
+      console.log("Error:", err);
+      toast.error("Something went wrong!");
+    }
+
+    setLoading(false);
+  };
+
   const handleImagePreview = (e) => {
     const file = e.target.files[0];
     if (file) setPreview(URL.createObjectURL(file));
   };
 
   return (
-    <div className="container mt-4" style={{ maxWidth: "500px" }}>
-      <div className="card shadow-sm">
-        <div className="card-body">
-          <h4 className="mb-3">Create Account</h4>
+    <div className="container py-5">
+      <h2 className="text-center mb-4">Admin Signup</h2>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Full Name */}
-            <div className="mb-3">
-              <label className="form-label">Full Name</label>
-              <input
-                type="text"
-                className={`form-control ${errors.fullName ? "is-invalid" : ""}`}
-                {...register("fullName")}
-              />
-              {errors.fullName && (
-                <div className="invalid-feedback">{errors.fullName.message}</div>
-              )}
-            </div>
-
-            {/* Email */}
-            <div className="mb-3">
-              <label className="form-label">Email</label>
-              <input
-                type="email"
-                className={`form-control ${errors.email ? "is-invalid" : ""}`}
-                {...register("email")}
-              />
-              {errors.email && (
-                <div className="invalid-feedback">{errors.email.message}</div>
-              )}
-            </div>
-
-            {/* Phone Number */}
-            <div className="mb-3">
-              <label className="form-label">Phone Number</label>
-              <input
-                type="text"
-                className={`form-control ${errors.phone ? "is-invalid" : ""}`}
-                {...register("phone")}
-              />
-              {errors.phone && (
-                <div className="invalid-feedback">{errors.phone.message}</div>
-              )}
-            </div>
-
-            {/* Address */}
-            <div className="mb-3">
-              <label className="form-label">Address</label>
-              <input
-                type="text"
-                className={`form-control ${errors.address ? "is-invalid" : ""}`}
-                {...register("address")}
-              />
-              {errors.address && (
-                <div className="invalid-feedback">{errors.address.message}</div>
-              )}
-            </div>
-
-            {/* CNIC */}
-            <div className="mb-3">
-              <label className="form-label">CNIC</label>
-              <input
-                type="text"
-                className={`form-control ${errors.cnic ? "is-invalid" : ""}`}
-                {...register("cnic")}
-              />
-              {errors.cnic && (
-                <div className="invalid-feedback">{errors.cnic.message}</div>
-              )}
-            </div>
-
-            {/* Password */}
-            <div className="mb-3">
-              <label className="form-label">Password</label>
-              <div className="input-group">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className={`form-control ${errors.password ? "is-invalid" : ""}`}
-                  {...register("password")}
-                />
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "Hide" : "Show"}
-                </button>
-                {errors.password && (
-                  <div className="invalid-feedback d-block">
-                    {errors.password.message}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Confirm Password */}
-            <div className="mb-3">
-              <label className="form-label">Confirm Password</label>
-              <div className="input-group">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
-                  {...register("confirmPassword")}
-                />
-                <button
-                  type="button"
-                  className="btn btn-outline-secondary"
-                  onClick={() =>
-                    setShowConfirmPassword(!showConfirmPassword)
-                  }
-                >
-                  {showConfirmPassword ? "Hide" : "Show"}
-                </button>
-                {errors.confirmPassword && (
-                  <div className="invalid-feedback d-block">
-                    {errors.confirmPassword.message}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Image Upload */}
-            <div className="mb-3">
-              <label className="form-label">Profile Image</label>
-              <input
-                type="file"
-                accept="image/*"
-                className={`form-control ${errors.image ? "is-invalid" : ""}`}
-                {...register("image")}
-                onChange={handleImagePreview}
-              />
-              {errors.image && (
-                <div className="invalid-feedback">{errors.image.message}</div>
-              )}
-
-              {preview && (
-                <img
-                  src={preview}
-                  alt="Preview"
-                  className="img-thumbnail mt-2"
-                  style={{ width: "120px", height: "120px", objectFit: "cover" }}
-                />
-              )}
-            </div>
-
-            <button className="btn btn-primary w-100" type="submit">
-              Sign Up
-            </button>
-          </form>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mx-auto p-4 border rounded shadow-sm bg-light"
+        style={{ maxWidth: "600px" }}
+        encType="multipart/form-data"
+      >
+        {/* Full Name */}
+        <div className="mb-3">
+          <label className="form-label">Full Name</label>
+          <input
+            type="text"
+            className="form-control"
+            {...register("fullName")}
+          />
+          {errors.fullName && (
+            <small className="text-danger">{errors.fullName.message}</small>
+          )}
         </div>
-      </div>
+
+        {/* Email */}
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input type="email" className="form-control" {...register("email")} />
+          {errors.email && (
+            <small className="text-danger">{errors.email.message}</small>
+          )}
+        </div>
+
+        {/* Phone */}
+        <div className="mb-3">
+          <label className="form-label">Phone</label>
+          <input type="text" className="form-control" {...register("phone")} />
+          {errors.phone && (
+            <small className="text-danger">{errors.phone.message}</small>
+          )}
+        </div>
+
+        {/* Address */}
+        <div className="mb-3">
+          <label className="form-label">Address</label>
+          <input
+            type="text"
+            className="form-control"
+            {...register("address")}
+          />
+          {errors.address && (
+            <small className="text-danger">{errors.address.message}</small>
+          )}
+        </div>
+
+        {/* CNIC */}
+        <div className="mb-3">
+          <label className="form-label">CNIC</label>
+          <input type="text" className="form-control" {...register("cnic")} />
+          {errors.cnic && (
+            <small className="text-danger">{errors.cnic.message}</small>
+          )}
+        </div>
+
+        {/* Password */}
+        <div className="mb-3">
+          <label className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            {...register("password")}
+          />
+          {errors.password && (
+            <small className="text-danger">{errors.password.message}</small>
+          )}
+        </div>
+
+        {/* Confirm Password */}
+        <div className="mb-3">
+          <label className="form-label">Confirm Password</label>
+          <input
+            type="password"
+            className="form-control"
+            {...register("confirmPassword")}
+          />
+          {errors.confirmPassword && (
+            <small className="text-danger">
+              {errors.confirmPassword.message}
+            </small>
+          )}
+        </div>
+
+        {/* Image Upload */}
+        <div className="mb-3">
+          <label className="form-label">Profile Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            className="form-control"
+            {...register("image")}
+            onChange={handleImagePreview}
+          />
+          {errors.image && (
+            <small className="text-danger">{errors.image.message}</small>
+          )}
+
+          {preview && (
+            <div className="text-center mt-3">
+              <img
+                src={preview}
+                alt="Preview"
+                className="rounded shadow"
+                width="150"
+                height="150"
+              />
+            </div>
+          )}
+        </div>
+
+        <button className="btn btn-primary w-100" disabled={loading}>
+          {loading ? "Creating..." : "Create Admin"}
+        </button>
+      </form>
+
+      <ToastContainer position="top-right" autoClose={2000} />
     </div>
   );
 }

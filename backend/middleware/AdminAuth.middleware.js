@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-export const isAuthenticated = async(req,res,next)=>{
+export const isAdminAuthenticated = async(req,res,next)=>{
    const Admintoken =  req.cookies['jwt-token']
    console.log('jwt-token-admin', Admintoken);
    
@@ -9,7 +9,7 @@ export const isAuthenticated = async(req,res,next)=>{
 
    //token verification
    const Admindecoded =  jwt.verify(token,process.env.JWT_SECRET)
-   console.log('decoded-jwt',Admindecoded);
+   console.log('decoded-jwt-admin',Admindecoded);
 
     req.user = Admindecoded;
    next();

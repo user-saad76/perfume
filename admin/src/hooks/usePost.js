@@ -5,14 +5,17 @@ export function usePost(url) {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
-  const postData = async (formData) => {
+  const postData = async (data) => {
     setLoading(true);
     setError(null);
     try {
       const res = await fetch(url, {
         method: "POST",
         credentials: "include",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
       if (!res.ok) {

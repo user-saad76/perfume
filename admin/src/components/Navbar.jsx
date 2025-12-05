@@ -1,8 +1,13 @@
 import React from "react";
 import adminPic from "../assets/testimonial-2.jpg"; // <-- add your image here
 import { Link } from "react-router";
+import { useAuth } from "../contexts/AdminAuthProvider";
+
 
 function Navbar() {
+    const { admin,error,loading} = useAuth()
+    console.log("admin",admin)
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3 shadow-sm">
       <a className="navbar-brand fw-bold" href="#">

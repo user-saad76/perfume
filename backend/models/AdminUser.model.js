@@ -37,9 +37,12 @@ const AdminUserSchema = new mongoose.Schema(
       minlength: [6, "Password must be at least 6 characters"],
     },
     image: {
-      type: String, // store image URL or path
-      required: [true, "Profile image is required"],
-    },
+       type: {
+         public_id:String,
+        secure_url:String
+       }, // You can store image URL/path here
+       required: true,
+     },
   },
   {
     timestamps: true, // adds createdAt and updatedAt
