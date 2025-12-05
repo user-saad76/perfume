@@ -8,7 +8,7 @@ import { isAdminAuthenticated } from '../middleware/AdminAuth.middleware.js'
  
 router.post("/admin-users/Admin-signup",AdminUpload.single("image"), signupAdminUser);
  router.route('/admin-users/Admin-signin').post(signinAdminUser)
-   router.route('/admin-users/admin').get(isAdminAuthenticated,Admin)
+   router.route('/admin-users/admin').get(Admin)
 //  router.route('/users/log-out').get(Logout)
 
 
