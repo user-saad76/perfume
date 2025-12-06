@@ -1,21 +1,29 @@
-import jwt from 'jsonwebtoken'
-export const isAdminAuthenticated = async(req,res,next)=>{
-   const Admintoken =  req.cookies['jwt-token']
-   console.log('jwt-token-admin', Admintoken);
-   
-   if(!Admintoken){
-     return res.status(401).json({message:'You are not authenticated.'})
-   }
+import jwt from "jsonwebtoken";
 
-   //token verification
-   const Admindecoded =  jwt.verify(token,process.env.JWT_SECRET)
-   console.log('decoded-jwt-admin',Admindecoded);
+export const isAdminAuthenticated = async (req, res, next) => {
+  try {
+    // Read token from cookies
+    const token = req.cookies["jwt-token"];
+    console.log("jwt-token-admin:", token);
 
-    req.user = Admindecoded;
-   next();
-   
+    if (!token) {
+      return res.status(401).json({
+        message: "You are not authenticated.",
+      });
+    }
 
-//    jwt.verify(token, process.env.SECRET_KEY, function(err, decoded) {
-//   console.log(decoded) // bar
-// });
-}
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("decoded-jwt-admin:", decoded);
+
+    // Attach decoded user to req
+    req.user = decoded;
+
+    next();
+  } catch (error) {
+    console.log("Admin Auth Error:", error);
+    return res.status(401).json({
+      message: "Invalid or expired token",
+    });
+  }
+};

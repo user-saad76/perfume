@@ -76,7 +76,18 @@ export const signinAdminUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-export const Admin = async(req,res,next)=>{
-   const user = await AdminUser.findById(req.user.id)
-   res.status(200).json(user)
-}
+export const Admin = async (req, res) => {
+  try {
+    console.log("Decoded User:", req.user); // check this output
+
+    const user = await AdminUser.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
