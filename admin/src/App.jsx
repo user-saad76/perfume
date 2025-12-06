@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import AddSignatureSeries from './Pages/AddSignatureSeries';
-import AuthProvider from './contexts/AdminAuthProvider';
+import { AdminAuthProvider } from "./contexts/AdminAuthProvider";
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 
@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-     <AuthProvider>
+     <AdminAuthProvider>
      <BrowserRouter>
        <Navbar/>
  
@@ -27,7 +27,7 @@ function App() {
          
      </Routes> 
   </BrowserRouter>
-  </AuthProvider>
+  </AdminAuthProvider>
       
     </>
   )

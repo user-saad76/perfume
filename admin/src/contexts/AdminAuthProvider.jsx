@@ -1,28 +1,74 @@
-import { createContext, useContext } from "react"
-import { useFetch } from "../hooks/useFetch"
+import { createContext, useContext, useEffect, useState } from "react";
+import { useFetch } from "../hooks/useFetch";
 
-export const AuthContext = createContext();
+export const AdminAuthContext = createContext();
 
-function AuthProvider({children}) {
-    const {Data,error,loading} = useFetch('http://localhost:5000/admin-users/admin', {
-      credentials: "include",
-    })
+export const AdminAuthProvider = ({ children }) => {
+  const [admin, setAdmin] = useState(null);
 
-    const logout = async () => {
+  // Auto fetch admin if token exists
+  const { Data, loading } = useFetch(
+    "http://localhost:5000/admin-users/admin",
+    { method: "GET", credentials: "include" }
+  );
+
+  useEffect(() => {
+    if (Data && Data._id) {
+      setAdmin(Data);
+    }
+  }, [Data]);
+
+  // Admin Login Function
+  const loginAdmin = async (email, password) => {
+    try {
+      const res = await fetch(
+        "http://localhost:5000/admin-users/Admin-signin",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include", // 🔥 VERY IMPORTANT
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      const data = await res.json();
+      if (data.success) {
+        // Fetch admin after login
+        const adminRes = await fetch(
+          "http://localhost:5000/admin-users/admin",
+          { credentials: "include" }
+        );
+        const adminData = await adminRes.json();
+        setAdmin(adminData);
+      }
+
+      return data;
+    } catch (error) {
+      return { success: false, message: "Login failed" };
+    }
+  };
+
+  // Logout Function
+  const logoutAdmin = async () => {
     await fetch("http://localhost:5000/AdminUsers/log-out", {
       method: "GET",
-      credentials: "include", // IMPORTANT if using cookies
+      credentials: "include",
     });
-    window.location.href = '/'
-  }
+    setAdmin(null);
+  };
 
-    return(
-      <AuthContext.Provider value = {{admin:Data,error,loading,logout}}>
-        {children}
-      </AuthContext.Provider>
-    )
-}
-export default AuthProvider
+  return (
+    <AdminAuthContext.Provider
+      value={{
+        admin,
+        loginAdmin,
+        logoutAdmin,
+        loading,
+      }}
+    >
+      {children}
+    </AdminAuthContext.Provider>
+  );
+};
 
-
- export const useAuth = () => useContext(AuthContext)
+export const useAdmin = () => useContext(AdminAuthContext);

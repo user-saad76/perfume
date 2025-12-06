@@ -1,11 +1,12 @@
 import React from "react";
 import adminPic from "../assets/testimonial-2.jpg"; // <-- add your image here
 import { Link } from "react-router";
-import { useAuth } from "../contexts/AdminAuthProvider";
+import { useAdmin } from "../contexts/AdminAuthProvider";
+
 
 
 function Navbar() {
-    const { admin,error,loading} = useAuth()
+    const { admin,error,loading} = useAdmin()
     console.log("admin",admin)
 
   return (

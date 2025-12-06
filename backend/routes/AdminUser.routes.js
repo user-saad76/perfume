@@ -1,7 +1,6 @@
 import express from 'express'
 import {  Admin, signinAdminUser, signupAdminUser } from '../controllers/AdminUser.controller.js'
 import { AdminUpload } from '../utlils/Admin-multer.js'
-import { isAuthenticated } from '../middleware/auth.middleware.js'
 import { isAdminAuthenticated } from '../middleware/AdminAuth.middleware.js'
 
 

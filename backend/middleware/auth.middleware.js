@@ -9,7 +9,7 @@ export const isAuthenticated = async(req,res,next)=>{
 
    //token verification
    const decoded =  jwt.verify(token,process.env.JWT_SECRET)
-   console.log('decoded-jwt',decoded);
+   console.log('decoded-jwt-admin',decoded);
 
     req.user = decoded;
    next();

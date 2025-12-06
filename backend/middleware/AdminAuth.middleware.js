@@ -4,7 +4,7 @@ export const isAdminAuthenticated = async (req, res, next) => {
   try {
     // Read token from cookies
     const token = req.cookies["jwt-token"];
-    console.log("jwt-token-admin:", token);
+    console.log("jwt-token:", token);
 
     if (!token) {
       return res.status(401).json({
