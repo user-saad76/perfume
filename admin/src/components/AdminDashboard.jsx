@@ -1,23 +1,45 @@
 import React from "react";
-import adminPic from "../assets/testimonial-2.jpg";
+import { useAdmin } from "../contexts/AdminAuthProvider";
+
 function AdminProfile() {
+  const { admin, error, loading } = useAdmin();
+  console.log("admin-profile", admin);
+
+  if (loading) {
+    return (
+      <div className="container d-flex justify-content-center align-items-center vh-100">
+        <h4>Loading...</h4>
+      </div>
+    );
+  }
+
+  if (error || !admin) {
+    return (
+      <div className="container d-flex justify-content-center align-items-center vh-100">
+        <h4 className="text-danger">Failed to load admin data</h4>
+      </div>
+    );
+  }
+
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card shadow p-4 text-center" style={{ width: "350px" }}>
         <img
-          src={adminPic}
+          src={admin?.image?.secure_url}
           alt="Admin"
           className="rounded-circle mx-auto mb-3"
           width="120"
           height="120"
         />
-        <h4 className="mb-0">Saad Khan</h4>
+
+        <h4 className="mb-0">{admin.fullName}</h4>
         <p className="text-muted">Administrator</p>
+
         <hr />
-        <p><strong>Email:</strong> saad@example.com</p>
-        <p><strong>Phone:</strong> +92 300 1234567</p>
-        <p><strong>Location:</strong> Islamabad, Pakistan</p>
-        <button className="btn btn-primary w-100 mt-3">Edit Profile</button>
+
+        <p><strong>Email:</strong> {admin.email}</p>
+        <p><strong>Phone:</strong> {admin.phone}</p>
+        <p><strong>Location:</strong> {admin.address}</p>
       </div>
     </div>
   );

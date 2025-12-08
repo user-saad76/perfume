@@ -6,7 +6,8 @@ import { useAdmin } from "../contexts/AdminAuthProvider";
 
 
 function Navbar() {
-    const { admin,error,loading} = useAdmin()
+    const { admin,error,loading, logoutAdmin} = useAdmin()
+    
     console.log("admin",admin)
 
   return (
@@ -105,8 +106,17 @@ function Navbar() {
             </a>
             
             <ul className="dropdown-menu dropdown-menu-end">
-              <li><Link className="dropdown-item" to ="/sign-up">Sign Up </Link></li>
-              <li><Link className="dropdown-item" to ="/sign-in">Sign In</Link></li>
+             {!admin ? (
+                    <>
+                      <li><Link className="dropdown-item" to="/sign-in">Sign In</Link></li>
+                      <li><Link className="dropdown-item" to="/sign-up">Sign Up</Link></li>
+                    </>
+                  ) : (
+                    <>
+                      <li><Link className="dropdown-item" to="/admin/profile">My Profile</Link></li>
+                      <li><button onClick={logoutAdmin} className="dropdown-item">Logout</button></li>
+                    </>
+                  )}
               
             </ul>
           </li>

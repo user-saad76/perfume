@@ -15,6 +15,7 @@ export const AdminAuthProvider = ({ children }) => {
   useEffect(() => {
     if (Data && Data._id) {
       setAdmin(Data);
+    
     }
   }, [Data]);
 
@@ -50,11 +51,12 @@ export const AdminAuthProvider = ({ children }) => {
 
   // Logout Function
   const logoutAdmin = async () => {
-    await fetch("http://localhost:5000/AdminUsers/log-out", {
+    await fetch("http://localhost:5000/admin-users/log-out", {
       method: "GET",
       credentials: "include",
     });
     setAdmin(null);
+      window.location.href = '/sign-in'
   };
 
   return (

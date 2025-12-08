@@ -24,6 +24,11 @@ import cors from "cors";
     credentials: true,                 // Allow cookies, tokens, sessions
   })
 );
+server.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 
  server.use(SignatureSeriesRoutes)
  server.use(UserRoutes)

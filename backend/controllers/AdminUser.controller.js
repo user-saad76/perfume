@@ -70,7 +70,9 @@ export const signinAdminUser = async (req, res) => {
     res.json({
       success: true,
       message: "User logged in successfully",
+      token: token   // add this
     });
+    console.log("Generated Token-admin:", token);
   } catch (error) {
     console.log("Sign in error:", error);
     res.status(500).json({ message: "Server error" });
@@ -91,3 +93,10 @@ export const Admin = async (req, res) => {
     res.status(500).json({ message: "Server error", error });
   }
 };
+export const AdminLogout = async(req,res,next)=>{
+      res.cookie("jwt-token",null,{httpOnly:true,secure:false,sameSite:"lax",maxAge:0}).json(
+      {
+            message:' admin has been logout'
+      }
+        )
+}

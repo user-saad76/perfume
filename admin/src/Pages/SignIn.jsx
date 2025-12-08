@@ -30,11 +30,11 @@ export default function SignIn() {
 
       const res = await fetch("http://localhost:5000/admin-users/Admin-signin", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+         headers: { "Content-Type": "application/json" },
+         credentials: "include",   //  REQUIRED
+         body: JSON.stringify(data),
+        });
+
 
       const result = await res.json();
       console.log("Login Response:", result);

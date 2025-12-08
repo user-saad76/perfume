@@ -1,5 +1,5 @@
 import express from 'express'
-import {  Admin, signinAdminUser, signupAdminUser } from '../controllers/AdminUser.controller.js'
+import {  Admin, AdminLogout, signinAdminUser, signupAdminUser } from '../controllers/AdminUser.controller.js'
 import { AdminUpload } from '../utlils/Admin-multer.js'
 import { isAdminAuthenticated } from '../middleware/AdminAuth.middleware.js'
 
@@ -10,7 +10,7 @@ import { isAdminAuthenticated } from '../middleware/AdminAuth.middleware.js'
 router.post("/admin-users/Admin-signup",AdminUpload.single("image"), signupAdminUser);
  router.route('/admin-users/Admin-signin').post(signinAdminUser)
    router.route('/admin-users/admin').get(isAdminAuthenticated,Admin)
-//  router.route('/users/log-out').get(Logout)
+  router.route('/admin-users/log-out').get(AdminLogout)
 
 
 

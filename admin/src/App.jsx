@@ -7,6 +7,7 @@ import AddSignatureSeries from './Pages/AddSignatureSeries';
 import { AdminAuthProvider } from "./contexts/AdminAuthProvider";
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
+import AdminProtected from './Pages/AdminProtected';
 
 
 function App() {
@@ -16,12 +17,12 @@ function App() {
     <>
      <AdminAuthProvider>
      <BrowserRouter>
-       <Navbar/>
+         <AdminProtected><Navbar/></AdminProtected>
  
       <Routes>
-           <Route  path='/' element={ <Home/>} />
-           <Route  path='/home' element={ <Home/>} />
-            <Route  path='/signature-series' element={ <AddSignatureSeries/>} />
+           <Route  path='/' element={<AdminProtected><Home/></AdminProtected>} />
+           <Route  path='/home' element={<AdminProtected><Home/></AdminProtected>} />
+            <Route  path='/signature-series' element={ <AdminProtected><AddSignatureSeries/></AdminProtected> } />
              <Route  path='/sign-up' element={ <SignUp/>} />
              <Route  path='/sign-in' element={ <SignIn/>} />
          
