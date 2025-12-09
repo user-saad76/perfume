@@ -23,7 +23,7 @@ function App() {
            <Route  path='/' element={<AdminProtected><Home/></AdminProtected>} />
            <Route  path='/home' element={<AdminProtected><Home/></AdminProtected>} />
             <Route  path='/signature-series' element={ <AdminProtected><AddSignatureSeries/></AdminProtected> } />
-             <Route  path='/sign-up' element={ <SignUp/>} />
+             <Route  path='/sign-up' element={ <AdminProtected><SignUp/></AdminProtected> } />
              <Route  path='/sign-in' element={ <SignIn/>} />
          
      </Routes> 

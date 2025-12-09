@@ -42,6 +42,7 @@ export default function SignIn() {
       if (res.ok) {
         toast.success("Login successful!");
         if (result.token) localStorage.setItem("adminToken", result.token);
+        window.location.href = '/'
       } else {
         toast.error(result.message || "Invalid credentials");
       }
@@ -103,11 +104,7 @@ export default function SignIn() {
         </button>
       </form>
 
-      <div className="mt-3 text-center">
-        <small>
-          Don't have an account? <Link to="/sign-up">Sign Up</Link>
-        </small>
-      </div>
+      
 
       <ToastContainer position="top-right" autoClose={2000} />
     </div>

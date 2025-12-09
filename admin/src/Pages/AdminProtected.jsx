@@ -12,6 +12,7 @@ function AdminProtected({ children }) {
   if (!admin || !admin._id) {
     return <Navigate to="/sign-in" replace />;
   }
+   
 
   // 3. logged in: allow access
   return children;

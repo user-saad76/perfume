@@ -32,10 +32,10 @@ function Navbar() {
 
           {/* Dashboard */}
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" to ="/">
               <i className="bi bi-speedometer2 me-1"></i>
               Dashboard
-            </a>
+            </Link>
           </li>
 
           {/* Products */}
@@ -98,7 +98,7 @@ function Navbar() {
               data-bs-toggle="dropdown"
             >
               <img
-                src={adminPic}
+                src={admin.image.secure_url}
                 alt="Admin"
                 className="rounded-circle me-2"
                 style={{ width: "35px", height: "35px", objectFit: "cover" }}
@@ -109,12 +109,12 @@ function Navbar() {
              {!admin ? (
                     <>
                       <li><Link className="dropdown-item" to="/sign-in">Sign In</Link></li>
-                      <li><Link className="dropdown-item" to="/sign-up">Sign Up</Link></li>
                     </>
                   ) : (
                     <>
                       <li><Link className="dropdown-item" to="/admin/profile">My Profile</Link></li>
                       <li><button onClick={logoutAdmin} className="dropdown-item">Logout</button></li>
+                       <li><Link className="dropdown-item" to="/sign-up">Sign Up</Link></li>
                     </>
                   )}
               
