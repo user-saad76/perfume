@@ -8,6 +8,7 @@ import { AdminAuthProvider } from "./contexts/AdminAuthProvider";
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import AdminProtected from './Pages/AdminProtected';
+import Orders from './Pages/Orders';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
             <Route  path='/signature-series' element={ <AdminProtected><AddSignatureSeries/></AdminProtected> } />
              <Route  path='/sign-up' element={ <AdminProtected><SignUp/></AdminProtected> } />
              <Route  path='/sign-in' element={ <SignIn/>} />
+               <Route  path='/orders' element={ <Orders/>} />
+
          
      </Routes> 
   </BrowserRouter>

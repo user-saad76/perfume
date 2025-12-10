@@ -58,10 +58,10 @@ function Navbar() {
 
           {/* Orders */}
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" to ="/orders">
               <i className="bi bi-cart-check me-1"></i>
               Orders
-            </a>
+            </Link>
           </li>
 
           {/* Users */}
