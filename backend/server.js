@@ -3,6 +3,7 @@ import 'dotenv/config'
 import SignatureSeriesRoutes from './routes/SignatureSeries.routes.js'
 import  UserRoutes from './routes/user.routes.js'
 import  AdminUserRoutes from './routes/AdminUser.routes.js'
+import  FeaturedCollectionRoutes from './routes/FeaturedCollection.routes.js'
 import  OrderRoutes from './routes/order.routes.js'
 import bodyParser from 'body-parser'
 import cookieParser from "cookie-parser";
@@ -34,6 +35,7 @@ server.use((req, res, next) => {
  server.use(UserRoutes)
  server.use(OrderRoutes)
   server.use(AdminUserRoutes)
+  server.use(FeaturedCollectionRoutes)
  server.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
     

@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import AdminProtected from './Pages/AdminProtected';
 import Orders from './Pages/Orders';
+import AddFeaturedCollection from './Pages/AddFeaturedCollection';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
              <Route  path='/sign-up' element={ <AdminProtected><SignUp/></AdminProtected> } />
              <Route  path='/sign-in' element={ <SignIn/>} />
                <Route  path='/orders' element={ <Orders/>} />
+                <Route  path='/featured-collection' element={ <AddFeaturedCollection/>} />
 
          
      </Routes> 

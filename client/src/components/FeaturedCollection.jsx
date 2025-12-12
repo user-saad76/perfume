@@ -1,32 +1,12 @@
 
 
-function FeaturedCollection() {
-    const products = [
-        {
-            id: 1,
-            name: "Signature Oud",
-            price: 2500,
-            image: "https://via.placeholder.com/300x350",
-        },
-        {
-            id: 2,
-            name: "Royal Musk",
-            price: 3200,
-            image: "https://via.placeholder.com/300x350",
-        },
-        {
-            id: 3,
-            name: "Amber Night",
-            price: 2800,
-            image: "https://via.placeholder.com/300x350",
-        },
-        {
-            id: 4,
-            name: "Blue Wave",
-            price: 2100,
-            image: "https://via.placeholder.com/300x350",
-        },
-    ];
+function FeaturedCollection({ featuredCollectionData }) {
+    console.log("featuredCollection data:", featuredCollectionData);
+
+    // Your API returns an ARRAY directly
+    const products = Array.isArray(featuredCollectionData)
+        ? featuredCollectionData
+        : [];
 
     return (
         <div className="container py-5 featured-wrapper">
@@ -36,18 +16,32 @@ function FeaturedCollection() {
 
             <div className="row g-4">
                 {products.map((item) => (
-                    <div key={item.id} className="col-lg-3 col-md-4 col-sm-6">
-                        <div className="fc-card shadow-sm">
-                            <img src={item.image} alt={item.name} className="fc-img" />
+         <div key={item._id} className="col-lg-3 col-md-4 col-sm-6">
+        <div className="card h-100 shadow-sm border-0">
+      {/* Image */}
+      <div className="card-img-top text-center p-2" style={{ backgroundColor: "#f8f9fa" }}>
+        <img
+          src={item.image?.secure_url}
+          alt={item.name}
+          className="img-fluid"
+        //   style={{
+        //     maxHeight: "250px",
+        //     objectFit: "cover",
+        //     borderRadius: "8px",
+        //   }}
+        />
+      </div>
 
-                            <div className="fc-body">
-                                <h5 className="fc-name">{item.name}</h5>
-                                <p className="fc-price">Rs {item.price}</p>
-                                <button className="btn btn-dark w-100 mt-2">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+      {/* Card Body */}
+      <div className="card-body d-flex flex-column text-center">
+        <h5 className="card-title">{item.name}</h5>
+        <p className="card-text fw-bold">Rs {item.price}</p>
+        <button className="btn btn-dark mt-auto w-100">View Details</button>
+      </div>
+    </div>
+  </div>
+))}
+
             </div>
         </div>
     );
