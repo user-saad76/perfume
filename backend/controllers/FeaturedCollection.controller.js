@@ -24,3 +24,20 @@ export const getFeaturedCollection = async(req,res)=>{
    
    res.json({message:'FeaturedCollection endpoint called', getFeaturedCollection})
 }
+
+export const getFeaturedCollectionBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const product = await FeaturedCollection.findOne({ slug });
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.json({ product });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};

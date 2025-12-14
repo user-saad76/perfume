@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 
 
 function FeaturedCollection({ featuredCollectionData }) {
@@ -36,7 +37,7 @@ function FeaturedCollection({ featuredCollectionData }) {
       <div className="card-body d-flex flex-column text-center">
         <h5 className="card-title">{item.name}</h5>
         <p className="card-text fw-bold">Rs {item.price}</p>
-        <button className="btn btn-dark mt-auto w-100">View Details</button>
+        <Link className="btn btn-dark mt-auto w-100" to = {`/featured-collection/${item.slug}`}>View Details</Link>
       </div>
     </div>
   </div>

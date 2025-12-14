@@ -15,6 +15,7 @@ import CartProvider from './contexts/CartProvider';
 import ShoppingCart from './Pages/ShoppingCart';
 import Checkout from './Pages/Checkout';
 import OrderDetail from './Pages/OrderDetail';
+import FeaturedDetails from './Pages/FeaturedDetails';
 
 
 
@@ -38,6 +39,7 @@ function App() {
            <Route  path='/home' element={ <Home/>} />
           <Route  path='/shop' element={ <Shop/>} />
           <Route  path='/signature-series/:slug' element={ <DetailPage/>} />
+           <Route  path='/featured-collection/:slug' element={ <FeaturedDetails/>} />
            <Route  path='/sign-up' element={ <SignUp/>} />
            <Route  path='/sign-in' element={ <SignIn/>} />
             <Route  path='/dashboard' element={<Protected><Dashboard/></Protected> } />
