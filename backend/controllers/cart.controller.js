@@ -67,13 +67,19 @@ export const updateCart = async(req,res)=>{
     })
    }
 }
-export const getAllCartItems = async(req,res)=>{
+export const getAllCartItemsByUser = async(req,res)=>{
   try {
-      const cartItems = await Cart.find({});
-       res.status(200).json({
-        success:true,
-        cartItems
-      })
+      // const {userId} = req.params;
+      // console.log('UserId',userId);
+    //  res.json({
+    //   data:"This is fake data"
+    //  })
+    const { userId } = req.params;
+       const cartItems = await Cart.find({userId});
+        res.status(200).json({
+         success:true,
+          data:cartItems
+       })
   } catch (error) {
        console.log(error);
         res.json({
