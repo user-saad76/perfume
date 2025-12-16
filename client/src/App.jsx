@@ -30,8 +30,9 @@ function App() {
 
   return (
     <>
+    
     <AuthProvider>
-      <CartProvider>
+       <CartProvider>
       <BrowserRouter>
        <Navbar />
      <Routes>
@@ -48,8 +49,10 @@ function App() {
                 <Route  path='/order-details' element={ <OrderDetail/>} />
      </Routes>
   </BrowserRouter>
-  </CartProvider>
-    </AuthProvider>
+   </CartProvider>
+  </AuthProvider>
+ 
+    
     
     </>
   )

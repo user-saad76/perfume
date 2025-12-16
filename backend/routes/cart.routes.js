@@ -6,8 +6,9 @@ import { addToCart,  getAllCartItemsByUser, getSingleCartItem, removeFromCart, u
 
  const router = express.Router()
 
- router.route('/cart/add').post(addToCart)
+ router.route('/cart/add/:userId').post(addToCart)
  router.route('/cart/:userId').get(getAllCartItemsByUser)
+ 
  router.route('/cart/:id').get(getSingleCartItem);
  router.route('/cart/update/:id/:type').put(updateCart)
  router.route('/cart/delete/:id').delete(removeFromCart)

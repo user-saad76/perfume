@@ -67,23 +67,26 @@ function CartProvider({children}) {
 
     const fetchCart = async (userId) =>{
         try {
-            const {data}  = await fetch(`http://localhost:5000/cart/${userId}`);
-            console.log("data from backend",data);
-            
-            dispatch({type:"SET_CART",payload:data || []});
+          const res = await fetch(`http://localhost:5000/cart/${userId}`);
+          const json = await res.json();
+          dispatch({ type: "SET_CART", payload: json.data || [] });
+
         } catch (err) {
             console.error("Error fetching cart:",err);
              
         }
     }
 
-
-
-
-    const addToCart = (product)=> dispatch({type:'ADD_TO_CART',payload:product},
-        console.log("Cart State",cartstate)
-        
-    )
+    const addToCart = async(product)=> {dispatch({type:'ADD_TO_CART',payload:product})
+     const res = await fetch(`http://localhost:5000/cart/add/${user?._id}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      });
+}
     const removeFromCart = (_id)=> dispatch({type:'REMOVE_FROM_CART',payload:_id})
      const clearFromCart = (_id)=> dispatch({type:'CLEAR_FROM_CART',payload:_id})
       const incrementFromCart = (_id)=> dispatch({type:'INCREMENT_CART',payload:_id})
@@ -91,15 +94,14 @@ function CartProvider({children}) {
         const CartTotal = ()=> dispatch({type:'CLEAR_FROM_CART'})
 
 
-        useEffect(() => {
-            console.log("inside useEffect ID",user?._id);
-            
-            fetchCart(user?._id)
-         
-        }, []);
-
-
-
+        
+     useEffect(() => {
+        console.log("inside useEffect ID",user?._id);
+    if (user?._id) {
+    
+    fetchCart(user._id);
+   }
+   }, [user]);
 
     return(
         <CartContext.Provider value = {{cartstate,setCart,addToCart,removeFromCart, clearFromCart,incrementFromCart,decrementFromCart,CartTotal}}>

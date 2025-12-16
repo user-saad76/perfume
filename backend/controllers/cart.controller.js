@@ -2,11 +2,29 @@ import Cart from '../models/cart.model.js'
 
 export const addToCart = async(req,res)=>{
   try {
+    const {userId} = req.params;
       const body = req.body;
-      const cartItem = await Cart.create(body)
+      console.log('userId from addtoCart',{
+        userId,
+        body
+      });
+
+      const product = {
+        productId:body._id,
+        name:body.title,
+        price:body.price,
+        quantity:1
+      }
+      const cartItems = await Cart.find({userId});
+
+       const newCartArr  = cartItems.push(product)
+       console.log('newCartArr',newCartArr);
+       
+      
+    //  const cartItem = await Cart.create(body)
       res.status(201).json({
         success:true,
-        cartItem
+       // cartItem
       })
 
   } catch (error) {
@@ -75,6 +93,7 @@ export const getAllCartItemsByUser = async(req,res)=>{
     //   data:"This is fake data"
     //  })
     const { userId } = req.params;
+    console.log('UserId',userId);
        const cartItems = await Cart.find({userId});
         res.status(200).json({
          success:true,
