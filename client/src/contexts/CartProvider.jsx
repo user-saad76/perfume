@@ -77,16 +77,34 @@ function CartProvider({children}) {
         }
     }
 
-    const addToCart = async(product)=> {dispatch({type:'ADD_TO_CART',payload:product})
-     const res = await fetch(`http://localhost:5000/cart/add/${user?._id}`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      });
-}
+   const addToCart = async (product) => {
+
+  // ✅ CORRECT PAYLOAD
+  const payload = {
+    productId: product._id,   // 🔥 YE MAIN FIX HAI
+    name: product.name || product.title,
+    price: product.price,
+  };
+
+  // Local cart update (UI instant)
+  dispatch({
+    type: "ADD_TO_CART",
+    payload: {
+      ...payload,
+      _id: product._id   // frontend ke liye
+    }
+  });
+
+  await fetch(`http://localhost:5000/cart/add/${user?._id}`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload), // ✅ backend ko sahi data
+  });
+};
+
     const removeFromCart = (_id)=> dispatch({type:'REMOVE_FROM_CART',payload:_id})
      const clearFromCart = (_id)=> dispatch({type:'CLEAR_FROM_CART',payload:_id})
       const incrementFromCart = (_id)=> dispatch({type:'INCREMENT_CART',payload:_id})

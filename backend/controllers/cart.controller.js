@@ -1,31 +1,31 @@
 import Cart from '../models/cart.model.js'
 
 export const addToCart = async(req,res)=>{
+  const {productId,name,price} = req.body;
+  const {userId} = req.params;
   try {
-    const {userId} = req.params;
-      const body = req.body;
-      console.log('userId from addtoCart',{
-        userId,
-        body
+
+     // ✅ HARD VALIDATION
+    if (!productId) {
+      return res.status(400).json({
+        success: false,
+        message: "productId is required"
       });
+    }
+   const cart = await getUserCart(userId);
+     console.log('cart by add to cart',cart);
+     
 
-      const product = {
-        productId:body._id,
-        name:body.title,
-        price:body.price,
-        quantity:1
-      }
-      const cartItems = await Cart.find({userId});
+    const item = cart.items.find(i => i.productId.toString() === productId);
 
-       const newCartArr  = cartItems.push(product)
-       console.log('newCartArr',newCartArr);
-       
-      
-    //  const cartItem = await Cart.create(body)
-      res.status(201).json({
-        success:true,
-       // cartItem
-      })
+    if (item) {
+      item.quantity += 1;
+    } else {
+      cart.items.push({ productId, name, price, quantity: 1 });
+    }
+
+    await cart.save();
+    res.json(cart);
 
   } catch (error) {
     console.log(error);
@@ -122,4 +122,13 @@ export const getSingleCartItem = async(req,res)=>{
         message:error?.message ||'Could not add Item to the cart,Please try again'
     })
     }
+}
+
+
+export const getUserCart = async(userId)=>{
+  let cart = await Cart.findOne({userId});
+  if(!cart){
+    cart = await Cart.create({userId,items:[]});
+  }
+  return cart;
 }
