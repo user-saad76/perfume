@@ -11,5 +11,5 @@ import { addToCart,  getAllCartItemsByUser, getSingleCartItem, removeFromCart, u
  
  router.route('/cart/:id').get(getSingleCartItem);
  router.route('/cart/update/:id/:type').put(updateCart)
- router.route('/cart/delete/:id').delete(removeFromCart)
+ router.route('/cart/delete/:productId/:userId').delete(removeFromCart)
  export default router

@@ -38,20 +38,17 @@ export const addToCart = async(req,res)=>{
   }
 }
 export const removeFromCart = async(req,res)=>{
+  const { productId ,userId} = req.params;
+  console.log('ProductId and UserId',{productId,userId});
+  
   try {
-    const {id} = req.params;
-    const cartItem = await Cart.findById(id);
-      res.status(201).json({
-        success:true,
-        cartItem
-      })
+    const cart = await getUserCart(userId);
+    cart.items = cart.items.filter(i => i.productId.toString() !== productId);
 
-  } catch (error) {
-    console.log(error);
-    res.json({
-        success: false,
-        message:error?.message ||'Could delete Item to the cart,Please try again'
-    })
+    await cart.save();
+    res.json(cart);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 } 
 export const clearCart = async(req,res)=>{
@@ -94,10 +91,12 @@ export const getAllCartItemsByUser = async(req,res)=>{
     //  })
     const { userId } = req.params;
     console.log('UserId',userId);
-       const cartItems = await Cart.find({userId});
+       const cartItems = await Cart.findOne({userId});
+       console.log('cartItems from backend' ,cartItems);
+       
         res.status(200).json({
          success:true,
-          data:cartItems
+          data:cartItems?cartItems.items:[]
        })
   } catch (error) {
        console.log(error);

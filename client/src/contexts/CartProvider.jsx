@@ -68,8 +68,10 @@ function CartProvider({children}) {
     const fetchCart = async (userId) =>{
         try {
           const res = await fetch(`http://localhost:5000/cart/${userId}`);
-          const json = await res.json();
-          dispatch({ type: "SET_CART", payload: json.data || [] });
+          const data = await res.json();
+          console.log("data from backend",data)
+
+          dispatch({ type: "SET_CART",payload: data.data || [] });
 
         } catch (err) {
             console.error("Error fetching cart:",err);
@@ -105,9 +107,20 @@ function CartProvider({children}) {
   });
 };
 
-    const removeFromCart = (_id)=> dispatch({type:'REMOVE_FROM_CART',payload:_id})
+    const removeFromCart = async(_id)=> {
+        dispatch({type:'REMOVE_FROM_CART',payload:_id})
+      const res = await fetch(`http://localhost:5000/cart/delete/${_id}/${user?._id}`, {
+    method: "DELETE",
+    credentials: "include",
+  
+  });
+    console.log("Delete cart ",res);
+    
+    }
      const clearFromCart = (_id)=> dispatch({type:'CLEAR_FROM_CART',payload:_id})
-      const incrementFromCart = (_id)=> dispatch({type:'INCREMENT_CART',payload:_id})
+      const incrementFromCart = (_id)=> {
+       dispatch({type:'INCREMENT_CART',payload:_id})
+      } 
        const decrementFromCart = (_id)=> dispatch({type:'DECREMENT_CART',payload:_id})
         const CartTotal = ()=> dispatch({type:'CLEAR_FROM_CART'})
 

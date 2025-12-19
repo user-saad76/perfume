@@ -77,7 +77,7 @@ function Navbar() {
                   className="badge bg-danger text-white rounded-circle position-absolute"
                   style={{ fontSize: "0.7rem", top: "-5px", right: "-10px" }}
                 >
-                  {cartstate.length}
+                  {cartstate?.length}
                 </span>
               </div>
 
