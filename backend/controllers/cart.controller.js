@@ -62,26 +62,40 @@ export const clearCart = async(req,res)=>{
     })
    }
 }
-export const updateCart = async(req,res)=>{
-   try {
-       const {id,type} = req.params;
-        if(!id || !type) return;
+export const incrementCartQty = async (req,res)=>{
+    const { productId } = req.body;
+  try {
+    const cart = await getUserCart(req.params.userId);
+    const item = cart.items.find(i => i.productId.toString() === productId);
 
-       if(type === 'INCREMENT'){
-          await Cart.findByIdAndUpdate(id,quantity)
-       }else if(type === 'DECREMENT'){
+    if (item) {
+      item.quantity += 1;
+    }
 
-       }else {
-         return
-       }
-   } catch (error) {
-        console.log(error);
-        res.json({
-        success: false,
-        message:error?.message ||'Could not add Item to the cart,Please try again'
-    })
-   }
+    await cart.save();
+    res.json(cart);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }
+
+export const decrementCartQty = async (req,res)=>{
+     const { productId } = req.body;
+  try {
+    const cart = await getUserCart(req.params.userId);
+    const item = cart.items.find(i => i.productId.toString() === productId);
+
+    if (item && item.quantity > 1) {
+      item.quantity -= 1;
+    }
+
+    await cart.save();
+    res.json(cart);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 export const getAllCartItemsByUser = async(req,res)=>{
   try {
       // const {userId} = req.params;
@@ -122,7 +136,6 @@ export const getSingleCartItem = async(req,res)=>{
     })
     }
 }
-
 
 export const getUserCart = async(userId)=>{
   let cart = await Cart.findOne({userId});

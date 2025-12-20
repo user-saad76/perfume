@@ -46,14 +46,14 @@ function ShoppingCart() {
                 <div className="d-flex align-items-center">
                   <button
                     className="btn btn-outline-dark btn-sm"
-                    onClick={() => decrementFromCart(item._id)}
+                    onClick={() => decrementFromCart(item.productId)}
                   >
                     -
                   </button>
                   <span className="mx-3">{item.quantity}</span>
                   <button
                     className="btn btn-dark btn-sm"
-                    onClick={() => incrementFromCart(item._id)}
+                    onClick={() => incrementFromCart(item.productId)}
                   >
                     +
                   </button>
@@ -62,7 +62,7 @@ function ShoppingCart() {
 
               <button
                 className="btn btn-danger btn-sm ms-2"
-                onClick={() => removeFromCart(item._id)}
+                onClick={() => removeFromCart(item.productId)}
               >
                 <i className="bi bi-trash"></i>
               </button>

@@ -34,7 +34,7 @@ const cartReducer =(state,action)=>{
   }
   if(action.type == 'REMOVE_FROM_CART'){
      console.log(' remove cart dispatcher called');
-     const newState = state.filter(item => item._id !== action.payload)
+     const newState = state.filter(item => item.productId !== action.payload)
      return newState;
   }
   if(action.type == 'CLEAR_FROM_CART'){
@@ -43,7 +43,7 @@ const cartReducer =(state,action)=>{
   }
   if(action.type == 'INCREMENT_CART'){
      console.log('increment cart dispatcher called');
-     let newState =  state.map(item => item._id === action.payload ? {
+     let newState =  state.map(item => item.productId === action.payload ? {
             ...item,quantity:item.quantity+1
         }  :item)
         console.log("incrementing cart",newState);
@@ -52,7 +52,7 @@ const cartReducer =(state,action)=>{
   }
   if(action.type == 'DECREMENT_CART'){
       console.log('decrement cart dispatcher called');
-      return state.map(item => item._id === action.payload && item.quantity > 1 ? 
+      return state.map(item => item.productId === action.payload && item.quantity > 1 ? 
             { ...item,quantity:item.quantity - 1}
             : item
       )
@@ -86,6 +86,7 @@ function CartProvider({children}) {
     productId: product._id,   // 🔥 YE MAIN FIX HAI
     name: product.name || product.title,
     price: product.price,
+    image:product.image
   };
 
   // Local cart update (UI instant)
@@ -112,16 +113,33 @@ function CartProvider({children}) {
       const res = await fetch(`http://localhost:5000/cart/delete/${_id}/${user?._id}`, {
     method: "DELETE",
     credentials: "include",
-  
   });
     console.log("Delete cart ",res);
     
     }
      const clearFromCart = (_id)=> dispatch({type:'CLEAR_FROM_CART',payload:_id})
-      const incrementFromCart = (_id)=> {
+      const incrementFromCart = async(_id)=> {
        dispatch({type:'INCREMENT_CART',payload:_id})
+     await fetch(`http://localhost:5000/cart/increment/${user?._id}`, {
+    method: "POST",
+    credentials: "include",
+     headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ productId:_id})
+  });
       } 
-       const decrementFromCart = (_id)=> dispatch({type:'DECREMENT_CART',payload:_id})
+       const decrementFromCart = async(_id)=> {
+        dispatch({type:'DECREMENT_CART',payload:_id})
+         await fetch(`http://localhost:5000/cart/decrement/${user?._id}`, {
+       method: "POST",
+     credentials: "include",
+     headers: {
+      "Content-Type": "application/json",
+    },
+   body: JSON.stringify({ productId:_id})
+  });
+      }
         const CartTotal = ()=> dispatch({type:'CLEAR_FROM_CART'})
 
 
