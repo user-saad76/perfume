@@ -19,11 +19,11 @@ function App() {
     <>
      <AdminAuthProvider>
      <BrowserRouter>
-         <AdminProtected><Navbar/></AdminProtected>
+        <AdminProtected><Navbar/></AdminProtected> 
  
       <Routes>
            <Route  path='/' element={<AdminProtected><Home/></AdminProtected>} />
-           <Route  path='/home' element={<AdminProtected><Home/></AdminProtected>} />
+           <Route  path='/home' element={ <AdminProtected><Home/></AdminProtected>} />
             <Route  path='/signature-series' element={ <AdminProtected><AddSignatureSeries/></AdminProtected> } />
              <Route  path='/sign-up' element={ <AdminProtected><SignUp/></AdminProtected> } />
              <Route  path='/sign-in' element={ <SignIn/>} />

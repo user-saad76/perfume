@@ -7,6 +7,8 @@ import { useCart } from "../contexts/CartProvider";
 import { useAuth } from "../contexts/authProvider";
 import { usePost } from "../hooks/usePost";
 
+
+
 // Zod schema for checkout form validation
 const checkoutSchema = z.object({
   fullName: z.string().min(2, "Full Name is required"),
@@ -77,6 +79,7 @@ function Checkout() {
       await postData(orderData);
 
     alert("Order Placed Successfully!");
+   
   } catch (err) {
     console.error(err);
     alert("Order Failed, Try Again!");

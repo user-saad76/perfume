@@ -10,8 +10,9 @@ function AdminProtected({ children }) {
 
   // 2. not logged in
   if (!admin || !admin._id) {
-    return <Navigate to="/sign-in" replace />;
+    return <Navigate to="/sign-in" />;
   }
+  
    
 
   // 3. logged in: allow access

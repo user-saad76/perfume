@@ -1,7 +1,7 @@
 import Cart from '../models/cart.model.js'
 
 export const addToCart = async(req,res)=>{
-  const {productId,name,price} = req.body;
+  const {productId,name,price,image} = req.body;
   const {userId} = req.params;
   try {
 
@@ -21,7 +21,7 @@ export const addToCart = async(req,res)=>{
     if (item) {
       item.quantity += 1;
     } else {
-      cart.items.push({ productId, name, price, quantity: 1 });
+      cart.items.push({ productId, name, price,image, quantity: 1 });
     }
 
     await cart.save();
