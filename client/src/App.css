@@ -535,3 +535,151 @@
 
 
 
+/* =====================
+   Carousel Container
+===================== */
+.special-carousel {
+  max-height: 520px;
+  overflow: hidden;
+}
+
+/* =====================
+   Banner Image
+===================== */
+.carousel-img {
+  height: 520px;
+  object-fit: cover;
+  filter: brightness(75%);
+}
+
+/* =====================
+   Carousel Caption (FULLY RESPONSIVE)
+===================== */
+.carousel-caption {
+  position: absolute;
+  left: 8%;
+  bottom: 30%;
+  right: auto;
+  text-align: left;
+  max-width: 520px;
+}
+
+/* Heading */
+.carousel-caption h2 {
+  font-size: clamp(1.4rem, 3vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Paragraph */
+.carousel-caption p {
+  font-size: clamp(0.85rem, 1.5vw, 1.2rem);
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/* =====================
+   Global Button
+===================== */
+.carousel-global-btn {
+  position: absolute;
+  bottom: 18%;
+  left: 8%;
+  z-index: 10;
+}
+
+.carousel-global-btn .btn {
+  padding: 14px 34px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 30px;
+}
+
+/* =====================
+   Tablet (Center Caption)
+===================== */
+@media (max-width: 992px) {
+  .carousel-img {
+    height: 400px;
+  }
+
+  .carousel-caption {
+   top: 65%;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+
+  .carousel-global-btn {
+    top: 65%;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+}
+
+
+/* =====================
+   Mobile (Center Caption)
+===================== */
+@media (max-width: 768px) {
+  .carousel-img {
+    height: 300px;
+  }
+
+  .carousel-caption {
+    top: 50%;
+    left: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    max-width: 90%;
+  }
+
+  .carousel-global-btn {
+    top: 65%;
+    left: 50%;
+    bottom: auto;
+    transform: translateX(-50%);
+  }
+
+  .carousel-global-btn .btn {
+    font-size: 1rem;
+    padding: 10px 24px;
+  }
+}
+
+/* =====================
+   Small Mobile (Perfect Center)
+===================== */
+@media (max-width: 480px) {
+  .carousel-img {
+    height: 250px;
+  }
+
+  .carousel-caption {
+    top: 45%;
+    left: 50%;
+    transform: translate(-8%, -60%);
+    max-width: 92%;
+  }
+
+  .carousel-caption p {
+    margin-top: 8px;
+  }
+
+  .carousel-global-btn {
+    top: 62%;
+  }
+}
+
+
+/* =====================
+   Indicators
+===================== */
+.carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}

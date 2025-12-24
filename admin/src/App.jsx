@@ -27,8 +27,8 @@ function App() {
             <Route  path='/signature-series' element={ <AdminProtected><AddSignatureSeries/></AdminProtected> } />
              <Route  path='/sign-up' element={ <AdminProtected><SignUp/></AdminProtected> } />
              <Route  path='/sign-in' element={ <SignIn/>} />
-               <Route  path='/orders' element={ <Orders/>} />
-                <Route  path='/featured-collection' element={ <AddFeaturedCollection/>} />
+               <Route  path='/orders' element={<AdminProtected><Orders/></AdminProtected>} />
+                <Route  path='/featured-collection' element={<AdminProtected><AddFeaturedCollection/></AdminProtected> } />
 
          
      </Routes> 
