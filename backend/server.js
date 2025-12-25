@@ -6,6 +6,7 @@ import  AdminUserRoutes from './routes/AdminUser.routes.js'
 import  FeaturedCollectionRoutes from './routes/FeaturedCollection.routes.js'
 import CartRoutes from './routes/cart.routes.js'
 import  OrderRoutes from './routes/order.routes.js'
+import FeedBackRoutes from './routes/FeedBack.routes.js'
 import bodyParser from 'body-parser'
 import cookieParser from "cookie-parser";
 import { connectDB } from './config/db.js'
@@ -38,6 +39,7 @@ server.use((req, res, next) => {
   server.use(AdminUserRoutes)
   server.use(FeaturedCollectionRoutes)
    server.use(CartRoutes)
+    server.use(FeedBackRoutes)
  server.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
     

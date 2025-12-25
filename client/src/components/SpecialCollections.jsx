@@ -4,6 +4,7 @@
 import banner1 from "../assets/new one banner.jpg";
 import banner2 from "../assets/women perfume.jpeg";
 import banner3 from "../assets/oud perfeme.avif";
+import { Link } from "react-router";
 
 
 
@@ -42,9 +43,9 @@ function SpecialCollections() {
 
         {/* Global CTA Button */}
         <div className="carousel-global-btn">
-          <button className="btn btn-warning btn-lg">
+          <Link className="btn btn-warning btn-lg" to= '/special-collection'>
             Shop Now
-          </button>
+          </Link>
         </div>
 
         {/* Controls */}

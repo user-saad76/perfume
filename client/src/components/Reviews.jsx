@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { usePost } from "../hooks/usePost";
 
 // Zod validation schema
 const feedbackSchema = z.object({
@@ -19,11 +20,22 @@ const Review = () => {
   } = useForm({
     resolver: zodResolver(feedbackSchema),
   });
+   const { postData, response, error, loading } = usePost(
+      "http://localhost:5000/feedback/feedback-create"
+    );
 
-  const onSubmit = (data) => {
-    console.log("Feedback Submitted:", data);
+  const onSubmit = async(data) => {
+    try {
+       console.log("Feedback Submitted:", data);
+       await postData(data);
     alert("Thank you for your feedback!");
     reset();
+      
+    } catch (error) {
+       console.error(err);
+       alert("FeedBack Failed, Try Again!");
+    }
+   
   };
 
   return (
