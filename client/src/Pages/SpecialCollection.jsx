@@ -28,143 +28,88 @@ function SpecialCollection() {
         </div>
       </div>
 
-      {/* Winter Collection */}
-      <section className="mb-5">
-        <h3 className="fw-bold mb-3">
-          <i className="fa-solid fa-snowflake text-primary me-2"></i>
-          Winter Collection
-        </h3>
+   {/* All Collections */}
+<section>
+  <h3 className="fw-bold mb-4 text-center">
+    <i className="fa-solid fa-layer-group text-primary me-2"></i>
+    Our Collections
+  </h3>
 
-        <div className="row g-4">
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Winter" />
-              <div className="card-body">
-                <h5 className="card-title">
-                  <i className="fa-solid fa-jacket me-2"></i>
-                  Winter Jacket
-                </h5>
-                <p className="card-text">
-                  Warm & stylish winter wear for cold days.
-                </p>
-                <button className="btn btn-outline-dark w-100">
-                  <i className="fa-solid fa-eye me-1"></i>
-                  View Collection
-                </button>
-              </div>
-            </div>
-          </div>
+  <div className="row g-4">
 
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Winter" />
-              <div className="card-body">
-                <h5 className="card-title">Hoodies</h5>
-                <p className="card-text">Comfortable hoodies for winter season.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Winter" />
-              <div className="card-body">
-                <h5 className="card-title">Sweaters</h5>
-                <p className="card-text">Premium sweaters with modern designs.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
+    {/* Card 1 */}
+    <div className="col-md-4">
+      <div className="card h-100 shadow-sm">
+        <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Jackets" />
+        <div className="card-body">
+          <h5 className="card-title">Men Jackets</h5>
+          <p className="card-text">Premium jackets for men.</p>
+          <button className="btn btn-outline-dark w-100">View Collection</button>
         </div>
-      </section>
+      </div>
+    </div>
 
-      {/* Summer Collection */}
-      <section className="mb-5">
-        <h3 className="fw-bold mb-3">
-          <i className="fa-solid fa-sun text-warning me-2"></i>
-          Summer Collection
-        </h3>
-
-        <div className="row g-4">
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Summer" />
-              <div className="card-body">
-                <h5 className="card-title">T-Shirts</h5>
-                <p className="card-text">Light & breathable summer t-shirts.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Summer" />
-              <div className="card-body">
-                <h5 className="card-title">Shorts</h5>
-                <p className="card-text">Comfortable shorts for hot days.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Summer" />
-              <div className="card-body">
-                <h5 className="card-title">Casual Wear</h5>
-                <p className="card-text">Trendy casual outfits for summer.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
+    {/* Card 2 */}
+    <div className="col-md-4">
+      <div className="card h-100 shadow-sm">
+        <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Formal Shirts" />
+        <div className="card-body">
+          <h5 className="card-title">Formal Shirts</h5>
+          <p className="card-text">Elegant office wear.</p>
+          <button className="btn btn-outline-dark w-100">View Collection</button>
         </div>
-      </section>
+      </div>
+    </div>
 
-      {/* Festival Collection */}
-      <section>
-        <h3 className="fw-bold mb-3">
-          <i className="fa-solid fa-gift text-danger me-2"></i>
-          Festival Collection
-        </h3>
-
-        <div className="row g-4">
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Festival" />
-              <div className="card-body">
-                <h5 className="card-title">Wedding Wear</h5>
-                <p className="card-text">Luxury outfits for weddings.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Festival" />
-              <div className="card-body">
-                <h5 className="card-title">Traditional Wear</h5>
-                <p className="card-text">Elegant traditional festival dresses.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="card h-100 shadow-sm">
-              <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Festival" />
-              <div className="card-body">
-                <h5 className="card-title">Party Wear</h5>
-                <p className="card-text">Stylish outfits for celebrations.</p>
-                <button className="btn btn-outline-dark w-100">View Collection</button>
-              </div>
-            </div>
-          </div>
+    {/* Card 3 */}
+    <div className="col-md-4">
+      <div className="card h-100 shadow-sm">
+        <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Casual Wear" />
+        <div className="card-body">
+          <h5 className="card-title">Casual Wear</h5>
+          <p className="card-text">Daily casual outfits.</p>
+          <button className="btn btn-outline-dark w-100">View Collection</button>
         </div>
-      </section>
+      </div>
+    </div>
 
+    {/* Card 4 */}
+    <div className="col-md-4">
+      <div className="card h-100 shadow-sm">
+        <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Dresses" />
+        <div className="card-body">
+          <h5 className="card-title">Women Dresses</h5>
+          <p className="card-text">Modern stylish dresses.</p>
+          <button className="btn btn-outline-dark w-100">View Collection</button>
+        </div>
+      </div>
+    </div>
+
+    {/* Card 5 */}
+    <div className="col-md-4">
+      <div className="card h-100 shadow-sm">
+        <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Traditional Wear" />
+        <div className="card-body">
+          <h5 className="card-title">Traditional Wear</h5>
+          <p className="card-text">Elegant ethnic outfits.</p>
+          <button className="btn btn-outline-dark w-100">View Collection</button>
+        </div>
+      </div>
+    </div>
+
+    {/* Card 6 */}
+    <div className="col-md-4">
+      <div className="card h-100 shadow-sm">
+        <img src="https://via.placeholder.com/300x200" className="card-img-top" alt="Kids Wear" />
+        <div className="card-body">
+          <h5 className="card-title">Kids Wear</h5>
+          <p className="card-text">Cute & comfortable outfits.</p>
+          <button className="btn btn-outline-dark w-100">View Collection</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     </div>
   );
 }

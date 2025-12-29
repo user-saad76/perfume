@@ -10,6 +10,7 @@ import SignIn from './pages/SignIn';
 import AdminProtected from './Pages/AdminProtected';
 import Orders from './Pages/Orders';
 import AddFeaturedCollection from './Pages/AddFeaturedCollection';
+import AddSpecialCollection from './Pages/AddSpecialCollection';
 
 
 function App() {
@@ -19,16 +20,17 @@ function App() {
     <>
      <AdminAuthProvider>
      <BrowserRouter>
-        <AdminProtected><Navbar/></AdminProtected> 
+       <Navbar/>
  
       <Routes>
-           <Route  path='/' element={<AdminProtected><Home/></AdminProtected>} />
-           <Route  path='/home' element={ <AdminProtected><Home/></AdminProtected>} />
-            <Route  path='/signature-series' element={ <AdminProtected><AddSignatureSeries/></AdminProtected> } />
-             <Route  path='/sign-up' element={ <AdminProtected><SignUp/></AdminProtected> } />
+           <Route  path='/' element={<Home/>} />
+           <Route  path='/home' element={ <Home/>} />
+            <Route  path='/signature-series' element={ <AddSignatureSeries/> } />
+             <Route  path='/sign-up' element={ <SignUp/> } />
              <Route  path='/sign-in' element={ <SignIn/>} />
-               <Route  path='/orders' element={<AdminProtected><Orders/></AdminProtected>} />
-                <Route  path='/featured-collection' element={<AdminProtected><AddFeaturedCollection/></AdminProtected> } />
+               <Route  path='/orders' element={<Orders/>} />
+                <Route  path='/featured-collection' element={<AddFeaturedCollection/> } />
+                <Route  path='/collection' element={<AddSpecialCollection/>} />
 
          
      </Routes> 

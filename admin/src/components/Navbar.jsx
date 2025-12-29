@@ -52,7 +52,7 @@ function Navbar() {
             <ul className="dropdown-menu dropdown-menu-end">
               <li><Link className="dropdown-item" to ="/signature-series">Add Signature Series</Link></li>
               <li><Link className="dropdown-item" to ="/featured-collection">Add Featured Collection</Link></li>
-              <li><a className="dropdown-item" href="#">Categories</a></li>
+              <li><Link className="dropdown-item" to ="/collection">Add Special Collection</Link></li>
             </ul>
           </li>
 
@@ -98,7 +98,7 @@ function Navbar() {
               data-bs-toggle="dropdown"
             >
               <img
-                src={admin.image.secure_url}
+                src={admin?.image.secure_url}
                 alt="Admin"
                 className="rounded-circle me-2"
                 style={{ width: "35px", height: "35px", objectFit: "cover" }}
