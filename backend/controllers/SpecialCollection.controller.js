@@ -16,3 +16,27 @@ export const CreateSpecialCollection = async(req,res)=>{
      
    res.json({message:'Create SpecialCollection endpoint called'})
 }
+export const getAllSpecialCollection = async(req,res)=>{
+  
+    const  getAllproducts = await SpecialCollection.find({})
+     // const Qdata = req.query;
+   // console.log(Qdata);
+   
+   res.json({message:'SpecialCollection endpoint called', getAllproducts})
+}
+export const getSpecialCollectionBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const product = await SpecialCollection.findOne({ slug });
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.json({ product });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};

@@ -18,6 +18,7 @@ import OrderDetail from './Pages/OrderDetail';
 import FeaturedDetails from './Pages/FeaturedDetails';
 import SpecialCollections from './components/SpecialCollections';
 import SpecialCollection from './Pages/SpecialCollection';
+import SpecialCollectionDetails from './Pages/SpecialCollectionDetails';
 
 
 
@@ -42,6 +43,7 @@ function App() {
            <Route  path='/home' element={ <Home/>} />
           <Route  path='/shop' element={ <Shop/>} />
           <Route  path='/signature-series/:slug' element={ <DetailPage/>} />
+           <Route  path='/special-collection/:slug' element={ <SpecialCollectionDetails/>} />
            <Route  path='/featured-collection/:slug' element={ <FeaturedDetails/>} />
            <Route  path='/sign-up' element={ <SignUp/>} />
            <Route  path='/sign-in' element={ <SignIn/>} />
