@@ -53,6 +53,7 @@ function Navbar() {
               <li><Link className="dropdown-item" to ="/signature-series">Add Signature Series</Link></li>
               <li><Link className="dropdown-item" to ="/featured-collection">Add Featured Collection</Link></li>
               <li><Link className="dropdown-item" to ="/collection">Add Special Collection</Link></li>
+              <li><Link className="dropdown-item" to ="/more-collection">Add More Collection</Link></li>
             </ul>
           </li>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { useAdmin } from "../contexts/AdminAuthProvider";
+import { Navigate } from "react-router";
 
 function AdminProfile() {
   const { admin, error, loading } = useAdmin();
@@ -15,11 +16,10 @@ function AdminProfile() {
 
   if (error || !admin) {
     return (
-      <div className="container d-flex justify-content-center align-items-center vh-100">
-        <h4 className="text-danger">Failed to load admin data</h4>
-      </div>
+       <Navigate to="/sign-in" />
     );
   }
+ 
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">

@@ -11,6 +11,7 @@ import AdminProtected from './Pages/AdminProtected';
 import Orders from './Pages/Orders';
 import AddFeaturedCollection from './Pages/AddFeaturedCollection';
 import AddSpecialCollection from './Pages/AddSpecialCollection';
+import AddMoreCollection from './Pages/AddMoreCollection';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
                <Route  path='/orders' element={<Orders/>} />
                 <Route  path='/featured-collection' element={<AddFeaturedCollection/> } />
                 <Route  path='/collection' element={<AddSpecialCollection/>} />
+                <Route  path='/more-collection' element={<AddMoreCollection/>} />
 
          
      </Routes> 

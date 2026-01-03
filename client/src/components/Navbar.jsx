@@ -117,16 +117,7 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* Category Buttons Bar */}
-      <div className="bg-secondary py-2">
-        <div className="container d-flex justify-content-center gap-3 flex-wrap">
-          <button className="btn btn-outline-light btn-sm">Women</button>
-          <button className="btn btn-outline-light btn-sm">Men</button>
-          <button className="btn btn-outline-light btn-sm">Attar</button>
-          <button className="btn btn-outline-light btn-sm">Tester</button>
-        </div>
-      </div>
-
+     
       {/* Large Search Input Overlay */}
       {showSearch && (
         <div

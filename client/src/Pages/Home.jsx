@@ -1,4 +1,5 @@
 import FeaturedCollection from "../components/FeaturedCollection"
+import MoreCollection from "../components/MoreCollection";
 import PerfumeBanners from "../components/PerfemeBanners"
 import Review from "../components/Reviews";
 import SignatureSeries from "../components/SignatureSeries"
@@ -16,6 +17,7 @@ function Home() {
         <SignatureSeries signatureSeries={signatureSeries?.getAllproducts || []}/>
         <FeaturedCollection  featuredCollectionData={featuredCollectionData?.getFeaturedCollection || []}/>
         <SpecialCollections/>
+        <MoreCollection/>
          <Review/>
         </>
     )
