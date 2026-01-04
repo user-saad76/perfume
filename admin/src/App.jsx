@@ -12,6 +12,7 @@ import Orders from './Pages/Orders';
 import AddFeaturedCollection from './Pages/AddFeaturedCollection';
 import AddSpecialCollection from './Pages/AddSpecialCollection';
 import AddMoreCollection from './Pages/AddMoreCollection';
+import AddMenCollection from './Pages/AddMenCollection';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                 <Route  path='/featured-collection' element={<AddFeaturedCollection/> } />
                 <Route  path='/collection' element={<AddSpecialCollection/>} />
                 <Route  path='/more-collection' element={<AddMoreCollection/>} />
+                <Route  path='/men-collection' element={<AddMenCollection/>} />
 
          
      </Routes> 

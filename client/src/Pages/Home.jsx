@@ -10,6 +10,7 @@ function Home() {
 
   const {Data:signatureSeries,error,loading} = useFetch("http://localhost:5000/signature-series");
    const {Data:featuredCollectionData,error:ErrorFeaturedCollection,loading:LoadingFeaturedCollection} = useFetch("http://localhost:5000/featured-collection");
+   const {Data:MoreCollectionData,error:ErrorMoreCollection,loading:LoadingMoreCollection} = useFetch("http://localhost:5000/more-collections");
    
     return(
         <>
@@ -17,7 +18,7 @@ function Home() {
         <SignatureSeries signatureSeries={signatureSeries?.getAllproducts || []}/>
         <FeaturedCollection  featuredCollectionData={featuredCollectionData?.getFeaturedCollection || []}/>
         <SpecialCollections/>
-        <MoreCollection/>
+        <MoreCollection />
          <Review/>
         </>
     )

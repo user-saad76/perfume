@@ -16,9 +16,11 @@ import ShoppingCart from './Pages/ShoppingCart';
 import Checkout from './Pages/Checkout';
 import OrderDetail from './Pages/OrderDetail';
 import FeaturedDetails from './Pages/FeaturedDetails';
-import SpecialCollections from './components/SpecialCollections';
+//import SpecialCollections from './components/SpecialCollections';
 import SpecialCollection from './Pages/SpecialCollection';
 import SpecialCollectionDetails from './Pages/SpecialCollectionDetails';
+import MenCollection from './Pages/MenCollection';
+
 
 
 
@@ -52,6 +54,7 @@ function App() {
                <Route  path='/checkout' element={ <Checkout/>} />
                 <Route  path='/order-details' element={ <OrderDetail/>} />
                 <Route  path='/special-collection' element={ <SpecialCollection/>} />
+                 <Route  path='/men-collection' element={ <MenCollection/>} />
      </Routes>
   </BrowserRouter>
    </CartProvider>

@@ -4,14 +4,19 @@ import { useCart } from "../contexts/CartProvider";
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 
-function ShoppingCart() {
-  const { cartstate, incrementFromCart, decrementFromCart, removeFromCart } = useCart();
-  const [total, setTotal] = useState(0);
-  console.log("sdhfsd",cartstate);
-    const [Shipping,setShipping ] = useState(500)
-  
 
-  // Calculate total whenever cartstate changes
+function ShoppingCart() {
+  const {
+    cartstate,
+    incrementFromCart,
+    decrementFromCart,
+    removeFromCart,
+  } = useCart();
+
+  const [total, setTotal] = useState(0);
+  const [shipping] = useState(500);
+
+  // Calculate total
   useEffect(() => {
     const cartTotal = cartstate.reduce(
       (acc, item) => acc + item.price * item.quantity,
@@ -22,35 +27,45 @@ function ShoppingCart() {
 
   return (
     <div className="container py-4">
+      <h3 className="mb-4 fw-bold text-center text-md-start">
+        Shopping Cart
+      </h3>
 
-      <h3 className="mb-4 fw-bold">Shopping Cart</h3>
-
-      {/* Cart Item */}
+      {/* CART ITEMS */}
       <div className="card shadow-sm border-0 mb-3">
-        {cartstate?.length > 0 &&
+        {cartstate.length > 0 ? (
           cartstate.map((item) => (
-            <div className="card-body d-flex align-items-center" key={item.id}>
+            <div
+              className="card-body d-flex flex-column flex-md-row align-items-md-center"
+              key={item.id}
+            >
+              {/* IMAGE */}
               <img
                 src={item.image?.secure_url}
-                alt=""
-                className="rounded"
-                style={{ width: "90px", height: "90px", objectFit: "cover" }}
+                alt={item.name}
+                className="rounded cart-img mb-3 mb-md-0"
               />
 
-              <div className="ms-3 flex-grow-1">
+              {/* PRODUCT INFO */}
+              <div className="ms-md-3 flex-grow-1 text-center text-md-start">
                 <h5 className="mb-1">{item.name}</h5>
+
                 <p className="text-muted mb-2">
-                  Rs {item.price} x {item.quantity} = Rs {item.price * item.quantity}
+                  Rs {item.price} × {item.quantity} ={" "}
+                  <strong>Rs {item.price * item.quantity}</strong>
                 </p>
 
-                <div className="d-flex align-items-center">
+                {/* QUANTITY BUTTONS */}
+                <div className="d-flex justify-content-center justify-content-md-start align-items-center">
                   <button
                     className="btn btn-outline-dark btn-sm"
                     onClick={() => decrementFromCart(item.productId)}
                   >
-                    -
+                    −
                   </button>
-                  <span className="mx-3">{item.quantity}</span>
+
+                  <span className="mx-3 fw-bold">{item.quantity}</span>
+
                   <button
                     className="btn btn-dark btn-sm"
                     onClick={() => incrementFromCart(item.productId)}
@@ -60,17 +75,23 @@ function ShoppingCart() {
                 </div>
               </div>
 
+              {/* REMOVE BUTTON */}
               <button
-                className="btn btn-danger btn-sm ms-2"
+                className="btn btn-danger btn-sm mt-3 mt-md-0 ms-md-2 align-self-md-start"
                 onClick={() => removeFromCart(item.productId)}
               >
                 <i className="bi bi-trash"></i>
               </button>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="card-body text-center text-muted">
+            Your cart is empty 🛒
+          </div>
+        )}
       </div>
 
-      {/* Cart Summary Section */}
+      {/* CART SUMMARY */}
       <div className="card shadow-sm border-0 mb-4">
         <div className="card-body">
           <h5 className="fw-bold mb-3">Cart Summary</h5>
@@ -82,7 +103,7 @@ function ShoppingCart() {
 
           <div className="d-flex justify-content-between mb-2">
             <span>Shipping</span>
-            <span>Rs {Shipping}</span>
+            <span>Rs {shipping}</span>
           </div>
 
           <div className="d-flex justify-content-between mb-2">
@@ -94,19 +115,24 @@ function ShoppingCart() {
 
           <div className="d-flex justify-content-between fw-bold">
             <span>Total</span>
-            <span>Rs {total + Shipping}</span>
+            <span>Rs {total + shipping}</span>
           </div>
         </div>
       </div>
 
-      {/* Total + Checkout */}
+      {/* CHECKOUT */}
       <div className="mt-4">
-        <h4 className="fw-bold">Total: Rs{total + Shipping}</h4>
-        <Link className="btn btn-dark mt-3 px-4 py-2 w-100" type="button" to ='/checkout'>
+        <h4 className="fw-bold text-center text-md-start">
+          Total: Rs {total + shipping}
+        </h4>
+
+        <Link
+          className="btn btn-dark mt-3 px-4 py-2 w-100"
+          to="/checkout"
+        >
           Proceed to Checkout
         </Link>
       </div>
-
     </div>
   );
 }
