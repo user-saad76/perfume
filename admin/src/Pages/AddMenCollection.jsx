@@ -86,7 +86,7 @@ function AddMenCollection() {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:5000/men-collection/create",
+        "http://localhost:5000/men-collections/create",
         {
           method: "POST",
           body: formData,

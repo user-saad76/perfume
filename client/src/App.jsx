@@ -20,6 +20,7 @@ import FeaturedDetails from './Pages/FeaturedDetails';
 import SpecialCollection from './Pages/SpecialCollection';
 import SpecialCollectionDetails from './Pages/SpecialCollectionDetails';
 import MenCollection from './Pages/MenCollection';
+import MenCollectionDetails from './Pages/MenCollectionDetails';
 
 
 
@@ -55,6 +56,7 @@ function App() {
                 <Route  path='/order-details' element={ <OrderDetail/>} />
                 <Route  path='/special-collection' element={ <SpecialCollection/>} />
                  <Route  path='/men-collection' element={ <MenCollection/>} />
+                  <Route  path='/men-collection/:slug' element={ <MenCollectionDetails/>} />
      </Routes>
   </BrowserRouter>
    </CartProvider>
