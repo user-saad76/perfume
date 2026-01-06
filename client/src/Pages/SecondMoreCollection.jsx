@@ -30,7 +30,7 @@ function SecondMoreCollection() {
                 <h4 className="card-title fw-bold">{item.name}</h4>
 
                 <Link
-                  to="/men-collection"
+                  to="/women-collection"
                   className="btn btn-dark"
                 >
                   View Collection

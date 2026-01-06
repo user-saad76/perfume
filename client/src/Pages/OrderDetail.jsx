@@ -1,6 +1,8 @@
 import React from "react";
+import { useAuth } from "../contexts/authProvider";
 
 function OrderDetail() {
+   const { user } = useAuth();
   return (
     <div className="bg-light vh-100 d-flex justify-content-center align-items-center">
       <div className="card shadow-lg p-5 text-center" style={{ maxWidth: "500px", borderRadius: "1rem" }}>
@@ -20,8 +22,9 @@ function OrderDetail() {
 
         {/* Success Message */}
         <h2 className="mb-3 text-success fw-bold">Order Delivered!</h2>
+         <h5>OrderId:{user._id}</h5>
         <p className="mb-4 text-muted">
-          🎉 Your order has been delivered successfully. Thank you for shopping with us!
+          🎉 Your order has been delivered successfully. Thank you for shopping with us! Take a screenshot of that OrderId
         </p>
 
         {/* Optional Button */}

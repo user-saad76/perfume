@@ -21,6 +21,8 @@ import SpecialCollection from './Pages/SpecialCollection';
 import SpecialCollectionDetails from './Pages/SpecialCollectionDetails';
 import MenCollection from './Pages/MenCollection';
 import MenCollectionDetails from './Pages/MenCollectionDetails';
+import WomenCollection from './Pages/WomenCollection';
+import WomenCollectionDetails from './Pages/WomenCollectionDetails';
 
 
 
@@ -57,6 +59,8 @@ function App() {
                 <Route  path='/special-collection' element={ <SpecialCollection/>} />
                  <Route  path='/men-collection' element={ <MenCollection/>} />
                   <Route  path='/men-collection/:slug' element={ <MenCollectionDetails/>} />
+                   <Route  path='/women-collection' element={ <WomenCollection/>} />
+                    <Route  path='/women-collection/:slug' element={ <WomenCollectionDetails/>} />
                   
      </Routes>
   </BrowserRouter>
