@@ -55,6 +55,8 @@ function Navbar() {
               <li><Link className="dropdown-item" to ="/collection">Add Special Collection</Link></li>
               <li><Link className="dropdown-item" to ="/more-collection">Add More Collection</Link></li>
               <li><Link className="dropdown-item" to ="/men-collection">Add Men Collection</Link></li>
+              <li><Link className="dropdown-item" to ="/women-collection">Add Women Collection</Link></li>
+                 <li><Link className="dropdown-item" to ="/secondMore-collection">AddSecondMoreCollection</Link></li>
             </ul>
           </li>
 

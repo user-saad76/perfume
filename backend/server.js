@@ -9,7 +9,9 @@ import  OrderRoutes from './routes/order.routes.js'
 import FeedBackRoutes from './routes/FeedBack.routes.js'
 import SpecialCollectionRoutes from './routes/SpecialCollection.routes.js'
 import MoreCollectionRoutes from './routes/MoreCollection.routes.js'
+import  SecondMoreCollectionRoutes from './routes/SecondMoreCollection.routes.js'
 import MenCollectionRoutes from './routes/MenCollection.routes.js'
+import WomenCollectionRoutes from './routes/WomenCollection.routes.js'
 import bodyParser from 'body-parser'
 import cookieParser from "cookie-parser";
 import { connectDB } from './config/db.js'
@@ -46,6 +48,8 @@ server.use((req, res, next) => {
      server.use(SpecialCollectionRoutes)
        server.use( MoreCollectionRoutes)
         server.use(MenCollectionRoutes)
+         server.use(WomenCollectionRoutes)
+           server.use(SecondMoreCollectionRoutes)
  server.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
     

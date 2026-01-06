@@ -57,6 +57,7 @@ function App() {
                 <Route  path='/special-collection' element={ <SpecialCollection/>} />
                  <Route  path='/men-collection' element={ <MenCollection/>} />
                   <Route  path='/men-collection/:slug' element={ <MenCollectionDetails/>} />
+                  
      </Routes>
   </BrowserRouter>
    </CartProvider>

@@ -13,6 +13,8 @@ import AddFeaturedCollection from './Pages/AddFeaturedCollection';
 import AddSpecialCollection from './Pages/AddSpecialCollection';
 import AddMoreCollection from './Pages/AddMoreCollection';
 import AddMenCollection from './Pages/AddMenCollection';
+import AddWomenCollection from './Pages/AddWomenCollection';
+import AddSecondMoreCollection from './Pages/AddSecondMoreCollection';
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
                 <Route  path='/collection' element={<AddSpecialCollection/>} />
                 <Route  path='/more-collection' element={<AddMoreCollection/>} />
                 <Route  path='/men-collection' element={<AddMenCollection/>} />
+                 <Route  path='/women-collection' element={<AddWomenCollection/>} />
+                  <Route  path='/secondmore-collection' element={<AddSecondMoreCollection/>} />
 
          
      </Routes> 

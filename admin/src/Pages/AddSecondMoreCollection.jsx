@@ -9,20 +9,15 @@ import "react-toastify/dist/ReactToastify.css";
 const collectionSchema = z
   .object({
     name: z.string().min(2, "Collection name is required"),
-    type: z.enum(["Men", "Women", "Tester", "Attar"], "Select a valid type"),
-
+    type: z.enum(["Men", "Women", "Tester", "Attar"], "Select a valid type"),  
     slug: z.string().min(2, "Slug is required"),
-    
     status: z.enum(["Active", "Inactive"], "Select status"),
     image: z.any().optional(),
   })
   .refine(
-    (data) => {
-      if (data.discountPrice && Number(data.discountPrice) > Number(data.price)) {
-        return false;
-      }
-      return true;
-    },
+    (data) =>
+      !data.discountPrice ||
+      Number(data.discountPrice) <= Number(data.price),
     {
       message: "Discount price cannot be greater than original price",
       path: ["discountPrice"],
@@ -30,11 +25,16 @@ const collectionSchema = z
   );
 
 // ================= COMPONENT =================
-function AddMoreCollection() {
+function AddSecondMoreCollection() {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
     resolver: zodResolver(collectionSchema),
   });
 
@@ -42,23 +42,33 @@ function AddMoreCollection() {
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
+
       Object.keys(data).forEach((key) => {
         if (key !== "image") formData.append(key, data[key]);
       });
 
       const fileInput = document.querySelector("input[type='file']");
-      if (fileInput && fileInput.files[0]) formData.append("image", fileInput.files[0]);
+      if (fileInput && fileInput.files[0]) {
+        formData.append("image", fileInput.files[0]);
+      }
 
       setLoading(true);
 
-      const res = await fetch("http://localhost:5000/more-collections/create", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        "http://localhost:5000/secondmore-collections/create",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const result = await res.json();
-      if (res.ok) toast.success("Collection added successfully!");
-      else toast.error(result.message || "Something went wrong!");
+
+      if (res.ok) {
+        toast.success("Collection added successfully!");
+      } else {
+        toast.error(result.message || "Something went wrong!");
+      }
     } catch (error) {
       console.error("POST Error:", error);
       toast.error("Something went wrong!");
@@ -98,14 +108,23 @@ function AddMoreCollection() {
             {...register("name")}
             onChange={handleSlug}
           />
-          {errors.name && <small className="text-danger">{errors.name.message}</small>}
+          {errors.name && (
+            <small className="text-danger">{errors.name.message}</small>
+          )}
         </div>
 
         {/* Slug */}
         <div className="mb-3">
           <label className="form-label">Slug</label>
-          <input type="text" className="form-control" {...register("slug")} readOnly />
-          {errors.slug && <small className="text-danger">{errors.slug.message}</small>}
+          <input
+            type="text"
+            className="form-control"
+            {...register("slug")}
+            readOnly
+          />
+          {errors.slug && (
+            <small className="text-danger">{errors.slug.message}</small>
+          )}
         </div>
 
         {/* Type */}
@@ -118,15 +137,16 @@ function AddMoreCollection() {
             <option value="Tester">Tester</option>
             <option value="Attar">Attar</option>
           </select>
-          {errors.type && <small className="text-danger">{errors.type.message}</small>}
+          {errors.type && (
+            <small className="text-danger">{errors.type.message}</small>
+          )}
         </div>
 
-        {/* Image Upload */}
+        {/* Image */}
         <div className="mb-3">
           <label className="form-label">Collection Image</label>
           <input
             type="file"
-            accept="image/*"
             className="form-control"
             {...register("image")}
             onChange={handleImageChange}
@@ -136,9 +156,9 @@ function AddMoreCollection() {
               <img
                 src={preview}
                 alt="Preview"
-                className="rounded shadow"
                 width="150"
                 height="150"
+                className="rounded shadow"
               />
             </div>
           )}
@@ -152,18 +172,23 @@ function AddMoreCollection() {
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
-          {errors.status && <small className="text-danger">{errors.status.message}</small>}
+          {errors.status && (
+            <small className="text-danger">{errors.status.message}</small>
+          )}
         </div>
 
-        <button type="submit" disabled={loading} className="btn btn-primary w-100">
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn btn-primary w-100"
+        >
           {loading ? "Saving..." : "Add Collection"}
         </button>
       </form>
 
-      {/* Toast Container */}
       <ToastContainer position="top-right" autoClose={2000} />
     </div>
   );
 }
 
-export default AddMoreCollection;
+export default AddSecondMoreCollection;

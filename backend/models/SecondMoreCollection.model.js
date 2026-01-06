@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const moreCollectionSchema = new mongoose.Schema(
+const secondMoreCollectionSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -8,11 +8,13 @@ const moreCollectionSchema = new mongoose.Schema(
       trim: true,
       minlength: [2, "Collection name must be at least 2 characters"],
     },
+
     type: {
       type: String,
       enum: ["Men", "Women", "Tester", "Attar"],
       required: [true, "Collection type is required"],
     },
+
     slug: {
       type: String,
       required: [true, "Slug is required"],
@@ -20,23 +22,34 @@ const moreCollectionSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+
+   
+
     status: {
       type: String,
       enum: ["Active", "Inactive"],
       default: "Active",
     },
+
     image: {
-     type: {
-         public_id:String,
-        secure_url:String
-       }, 
-       required: true,
+      public_id: {
+        type: String,
+        required: [true, "Image public_id is required"],
+      },
+      secure_url: {
+        type: String,
+        required: [true, "Image URL is required"],
+      },
     },
   },
   {
-    timestamps: true, // automatically add createdAt and updatedAt
+    timestamps: true,
   }
 );
 
-const MoreCollection = mongoose.model("MoreCollection", moreCollectionSchema);
-export default MoreCollection;
+const SecondMoreCollection = mongoose.model(
+  "SecondMoreCollection",
+  secondMoreCollectionSchema
+);
+
+export default SecondMoreCollection;

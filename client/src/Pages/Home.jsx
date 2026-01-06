@@ -5,6 +5,7 @@ import Review from "../components/Reviews";
 import SignatureSeries from "../components/SignatureSeries"
 import SpecialCollections from "../components/SpecialCollections";
 import { useFetch } from "../hooks/useFetch";
+import SecondMoreCollection from "./SecondMoreCollection";
 
 function Home() {
 
@@ -19,6 +20,7 @@ function Home() {
         <FeaturedCollection  featuredCollectionData={featuredCollectionData?.getFeaturedCollection || []}/>
         <SpecialCollections/>
         <MoreCollection />
+        <SecondMoreCollection/>
          <Review/>
         </>
     )

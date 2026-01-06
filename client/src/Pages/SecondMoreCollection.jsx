@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 
-function MoreCollection() {
-  const { Data: MoreCollections, loading, error } = useFetch(
-    "http://localhost:5000/more-collections"
+function SecondMoreCollection() {
+  const { Data: SecondCollections, loading, error } = useFetch(
+    "http://localhost:5000/secondmore-collections"
   );
 
   if (loading) return <div className="text-center py-5">Loading...</div>;
@@ -12,8 +12,8 @@ function MoreCollection() {
   return (
     <div className="container-fluid py-5">
       <div className="row g-4">
-        {MoreCollections?.getAllproducts?.map((item) => (
-          <div className="col-12" key={item.id}>
+        {SecondCollections?.getAllproducts?.map((item) => (
+          <div className="col-12" key={item._id}>
             {/* Banner Card */}
             <div className="card shadow-sm border-0">
               <img
@@ -44,4 +44,4 @@ function MoreCollection() {
   );
 }
 
-export default MoreCollection;
+export default SecondMoreCollection;
