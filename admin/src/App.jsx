@@ -15,6 +15,7 @@ import AddMoreCollection from './Pages/AddMoreCollection';
 import AddMenCollection from './Pages/AddMenCollection';
 import AddWomenCollection from './Pages/AddWomenCollection';
 import AddSecondMoreCollection from './Pages/AddSecondMoreCollection';
+import AuthProvider from '../../client/src/contexts/authProvider';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <>
+   
      <AdminAuthProvider>
      <BrowserRouter>
        <Navbar/>
@@ -32,7 +34,7 @@ function App() {
             <Route  path='/signature-series' element={ <AddSignatureSeries/> } />
              <Route  path='/sign-up' element={ <SignUp/> } />
              <Route  path='/sign-in' element={ <SignIn/>} />
-               <Route  path='/orders' element={<Orders/>} />
+               <Route  path='/orders' element={ <Orders/>} />
                 <Route  path='/featured-collection' element={<AddFeaturedCollection/> } />
                 <Route  path='/collection' element={<AddSpecialCollection/>} />
                 <Route  path='/more-collection' element={<AddMoreCollection/>} />
@@ -44,6 +46,7 @@ function App() {
      </Routes> 
   </BrowserRouter>
   </AdminAuthProvider>
+
       
     </>
   )
