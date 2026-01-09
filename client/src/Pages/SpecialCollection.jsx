@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useFetch } from "../hooks/useFetch"; // your custom hook
 import { Link } from "react-router-dom";
@@ -8,6 +8,16 @@ function SpecialCollection() {
   const { Data: specialCollections, loading, error } = useFetch(
     "http://localhost:5000/special-collection"
   );
+
+  const [searchTerm,setSearchTerm] = useState('')
+
+  const handleSearch = (e)=>{
+    e.preventDefault();
+    if(!searchTerm) return;
+    console.log(searchTerm);
+    
+  }
+
 
   return (
     <div className="container py-5">
@@ -20,13 +30,14 @@ function SpecialCollection() {
       {/* Search Bar */}
       <div className="row justify-content-center mb-5">
         <div className="col-md-8">
-          <div className="input-group input-group-lg shadow-sm">
+          <div className="input-group input-group-lg shadow-sm" >
             <input
               type="text"
               className="form-control"
+              onChange={(e)=>setSearchTerm(e.target.value)}
               placeholder="Search collections..."
             />
-            <button className="btn btn-dark">
+            <button className="btn btn-dark" onClick={handleSearch}>
               <i className="fa-solid fa-magnifying-glass me-1"></i>
               Search
             </button>
