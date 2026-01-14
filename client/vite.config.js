@@ -9,3 +9,7 @@ export default defineConfig({
     port:5174
   }
 })
+//docker build -t admin-app .
+//docker build -t client-app .
+//docker run -p 5173:5173 admin-app
+// docker run -p 5174:5174 client-app
