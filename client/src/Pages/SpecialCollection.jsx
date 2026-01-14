@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useFetch } from "../hooks/useFetch"; // your custom hook
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function SpecialCollection() {
   // Fetch special collections from API
@@ -10,10 +11,12 @@ function SpecialCollection() {
   );
 
   const [searchTerm,setSearchTerm] = useState('')
+  const navigate = useNavigate();
 
   const handleSearch = (e)=>{
     e.preventDefault();
     if(!searchTerm) return;
+     navigate(`/special-collection/?searchTerm=${searchTerm}`)
     console.log(searchTerm);
     
   }

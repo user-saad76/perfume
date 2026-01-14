@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router";
-import { useAuth } from "../contexts/authProvider";
-import { useCart } from "../contexts/CartProvider";
+import { useAuth } from "../Contexts/AuthProvider";
+import { useCart } from "../Contexts/CartProvider";
 
 
 function Navbar() {

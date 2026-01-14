@@ -1,7 +1,7 @@
 import React from "react";
 import adminPic from "../assets/testimonial-2.jpg"; // <-- add your image here
 import { Link } from "react-router";
-import { useAdmin } from "../contexts/AdminAuthProvider";
+import { useAdmin } from "../Contexts/AdminAuthProvider";
 
 
 

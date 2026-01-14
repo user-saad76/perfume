@@ -1,5 +1,5 @@
 import React from "react";
-import { useAdmin } from "../contexts/AdminAuthProvider";
+import { useAdmin } from "../Contexts/AdminAuthProvider";
 import { Navigate } from "react-router";
 
 function AdminProfile() {

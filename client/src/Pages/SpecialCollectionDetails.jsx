@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useCart } from "../contexts/CartProvider";
-import { useAuth } from "../contexts/authProvider";
+import { useCart } from "../Contexts/CartProvider";
+import { useAuth } from "../Contexts/AuthProvider";
 
 function SpecialCollectionDetails() {
   const { slug } = useParams();

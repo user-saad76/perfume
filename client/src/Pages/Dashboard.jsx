@@ -1,4 +1,4 @@
-import { useAuth } from "../contexts/authProvider";
+import { useAuth } from "../Contexts/AuthProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 

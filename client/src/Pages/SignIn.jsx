@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router";
 import { usePost } from "../hooks/usePost";
-import { useAuth } from "../contexts/authProvider";
+import { useAuth } from "../Contexts/AuthProvider";
 import { Navigate } from "react-router";
 
 // Zod validation schema

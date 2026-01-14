@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { useCart } from "../contexts/CartProvider";
+import { useCart } from "../Contexts/CartProvider";
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 

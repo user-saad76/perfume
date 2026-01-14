@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useCart } from "../contexts/CartProvider";
-import { useAuth } from "../contexts/authProvider";
+import { useCart } from "../Contexts/CartProvider";
+import { useAuth } from "../Contexts/AuthProvider";
 import { usePost } from "../hooks/usePost";
 import { useNavigate } from "react-router";
 
