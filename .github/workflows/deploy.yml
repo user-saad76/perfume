@@ -38,12 +38,13 @@ jobs:
           enable-commit-comment: false
           enable-commit-status: true
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }} #nfp_k1c35LBNHMz9uSvC78Fxsjm6VEDGfhAbcc32
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.CLIENT_SITE_ID }}
 
   admin:
     name: Deploy Admin to Netlify
     runs-on: ubuntu-latest
+    needs: client
     steps:
       - uses: actions/checkout@v3
 
@@ -77,13 +78,33 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.ADMIN_SITE_ID }}
 
   backend:
-    name: Deploy Backend to Render
+    name: Deploy Backend to Railway
     runs-on: ubuntu-latest
+    needs: [client, admin]   # Runs after client & admin
     steps:
       - uses: actions/checkout@v3
 
-      - name: Deploy to Render
-        uses: johnbeynon/render-deploy-action@v0.0.8
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          serviceId: ${{ secrets.RENDER_SERVICE_ID }}
-          apiKey: ${{ secrets.RENDER_API_KEY }}  #rnd_mt8KzZSXMxOyIHWBhMPxdBEaMdM6
+          node-version: '20'
+
+      - name: Install dependencies (Backend)
+        run: npm install
+        working-directory: ./backend
+
+      - name: Build Backend (if needed)
+        run: npm run build
+        working-directory: ./backend
+
+      - name: Deploy to Railway
+        run: |
+          curl -sSL https://railway.app/install.sh | sh
+          railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}         
+          cd ./backend
+          railway up --production
+        env:
+          RAILWAY_API_KEY: ${{ secrets.RAILWAY_API_KEY }}  
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}  # optional if you have multiple projects
+          DB_URL: ${{ secrets.DB_URL }}  # your backend env variables
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
