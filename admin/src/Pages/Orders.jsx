@@ -28,6 +28,19 @@ function Orders() {
     }
   }, [Data]);
 
+  // 🔍 Search Filter Logic (ONLY ADDITION)
+  const filteredOrders = orders.filter((order) => {
+    const value = search.toLowerCase();
+
+    return (
+      order.id.toLowerCase().includes(value) ||
+      order.customer.name.toLowerCase().includes(value) ||
+      order.items.some((item) =>
+        item.name.toLowerCase().includes(value)
+      )
+    );
+  });
+
   // Delete Order (UI only)
   const deleteOrder = (id) => {
     setOrders((prev) => prev.filter((order) => order.id !== id));
@@ -37,20 +50,18 @@ function Orders() {
     <div className="container py-4">
       <h2 className="mb-4 fw-bold">Orders Details</h2>
 
+      {/* 🔍 Search Bar */}
+      <div className="mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search by Order ID, Customer Name, or Item..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
 
-       {/* 🔍 Search Bar */}
-        <div className="mb-4">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by Order ID, Customer Name, or Item..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-
-
-      {orders.map((order) => (
+      {filteredOrders.map((order) => (
         <div className="card shadow-sm border-0 mb-4" key={order.id}>
           <div className="card-body">
             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -97,7 +108,9 @@ function Orders() {
 
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h5 className="fw-bold mb-0">Total</h5>
-              <h5 className="fw-bold mb-0 text-primary">Rs {order.total}</h5>
+              <h5 className="fw-bold mb-0 text-primary">
+                Rs {order.total}
+              </h5>
             </div>
 
             {/* Delete Button */}

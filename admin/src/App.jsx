@@ -27,20 +27,20 @@ function App() {
   return (
     <AdminAuthProvider>
       <BrowserRouter>
-        <Navbar />
+        <AdminProtected><Navbar /></AdminProtected>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
-          <Route path='/signature-series' element={<AddSignatureSeries />} />
+          <Route path='/signature-series' element={ <AdminProtected><AddSignatureSeries /></AdminProtected>} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/orders' element={<Orders />} />
-          <Route path='/featured-collection' element={<AddFeaturedCollection />} />
-          <Route path='/collection' element={<AddSpecialCollection />} />
-          <Route path='/more-collection' element={<AddMoreCollection />} />
-          <Route path='/men-collection' element={<AddMenCollection />} />
-          <Route path='/women-collection' element={<AddWomenCollection />} />
-          <Route path='/secondmore-collection' element={<AddSecondMoreCollection />} />
+          <Route path='/orders' element={<AdminProtected><Orders /></AdminProtected>} />
+          <Route path='/featured-collection' element={<AdminProtected><AddFeaturedCollection /></AdminProtected>} />
+          <Route path='/collection' element={<AdminProtected><AddSpecialCollection /></AdminProtected>} />
+          <Route path='/more-collection' element={<AdminProtected><AddMoreCollection /></AdminProtected>} />
+          <Route path='/men-collection' element={<AdminProtected><AddMenCollection /></AdminProtected>} />
+          <Route path='/women-collection' element={<AdminProtected><AddWomenCollection /></AdminProtected>} />
+          <Route path='/secondmore-collection' element={<AdminProtected><AddSecondMoreCollection /></AdminProtected>} />
         </Routes>
       </BrowserRouter>
     </AdminAuthProvider>
